@@ -1,3 +1,16 @@
+<?php
+/*
+ * footer.php
+ *
+ * Author: Jixia Lab <vt@elnode.com>
+ * Site: http://lab.jixia.org/
+ *
+ * ver0.4
+ * 
+ * 04/24/2010
+ *
+ */
+?>
 </div>
 <div id="footer">
   Project Vaynwords v0.3 <a href="http://lab.jixia.org" title="Jixia Lab">稷下出品</a><br/><br/>

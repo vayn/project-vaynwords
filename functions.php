@@ -1,4 +1,15 @@
 <?php
+/*
+ * functions.php
+ *
+ * Author: Jixia Lab <vt@elnode.com>
+ * Site: http://lab.jixia.org/
+ *
+ * ver0.4
+ * 
+ * 04/24/2010
+ *
+ */
 
 function definition($value_1) { # 从 dict.cn 获得单词音标、解释、中英文例句
   $xml = simplexml_load_file('http://dict.cn/ws.php?utf8=true&q=' . $value_1);

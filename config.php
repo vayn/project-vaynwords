@@ -1,4 +1,15 @@
 <?php
+/*
+ * config.php
+ *
+ * Author: Jixia Lab <vt@elnode.com>
+ * Site: http://lab.jixia.org/
+ *
+ * ver0.4
+ * 
+ * 04/24/2010
+ *
+ */
 
 $vw_sitename = 'LAB.JIXIA.ORG'; # Your site name
 

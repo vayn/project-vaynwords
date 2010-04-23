@@ -1,12 +1,16 @@
 @charset "utf-8";
 
 /*
-    Project Vaynwords CSS
-
-    Author: Jixia Lab <vt@elnode.com>
-    Site: http://lab.jixia.org/
-
-*/
+ *   Project Vaynwords CSS
+ *
+ *   Author: Jixia Lab <vt@elnode.com>
+ *   Site: http://lab.jixia.org/
+ *
+ *   ver0.4
+ *
+ *   04/24/2010
+ *
+ */
 
 body {
   background: #e4f2fd url("img/background.png") no-repeat 40px bottom;

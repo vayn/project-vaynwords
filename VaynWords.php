@@ -1,11 +1,21 @@
 <?php
+/*
+ * Vaynwords.php
+ *
+ * Author: Jixia Lab <vt@elnode.com>
+ * Site: http://lab.jixia.org/
+ *
+ * ver0.4.5
+ *
+ * 04/24/2010
+ *
+ */
   
 session_start();
   
 if ($_SESSION['SESS_QUERY']) {
   
-  ob_start();
-  
+  session_destroy();
   include_once("./config.php");
   include_once("./TwitterSearch.php");
   include_once("./functions.php");
@@ -17,7 +27,7 @@ if ($_SESSION['SESS_QUERY']) {
   $results = $search->from($vw_username)->with($vw_hashtag)->results();
   
   # Get flag 
-  if (file_exists('content_flag.php')) {
+  if (file_exists('content_flag.php') && (filesize('content_flag.php') <> 0)) {
     if (($fp = fopen('content_flag.php', 'r')) == FALSE) {
       die('Failed to open file for writing!');
     }
@@ -26,7 +36,9 @@ if ($_SESSION['SESS_QUERY']) {
       fclose($fp);
     }
   }
-  
+    
+  ob_start();
+
   foreach ($results as $key) { 
     $word = substr($key->text, 0, strrpos($key->text, '#'));
   
@@ -46,20 +58,22 @@ if ($_SESSION['SESS_QUERY']) {
       // echo '<td>' . substr($key->created_at, 0, strrpos($key->created_at, ' ')) . '</td>';
       // echo '<td>' . $key->source . '</td>';
       echo '</tr>';
-  
+
       if ($def['sent_o'] != '' || $def['sent_t'] != '') {
         echo '<tr><td class="word_box_l" colspan=3>' . $def['sent_o'] . '</td></tr>';
         echo '<tr><td class="word_box_l" colspan=3>' . $def['sent_t'] . '</td></tr>';
       }
-  
-      echo '</table>';
+
+     echo '</table>';
     }
   }
-  
+ 
   $new_content = ob_get_contents();
+
+  ob_end_clean();
   
   $old_content = '';
-  
+
   if (file_exists('content.php')) {
     if (($fp = fopen('content.php', 'r')) == FALSE) {
       die('Failed to open file for writing!');
@@ -69,7 +83,7 @@ if ($_SESSION['SESS_QUERY']) {
       fclose($fp);
     }
   }
-  
+
   # Output content
   if (($fp = fopen('content.php', 'w')) == FALSE) {
     die('Failed to open file for writing!');
@@ -79,7 +93,7 @@ if ($_SESSION['SESS_QUERY']) {
     fwrite($fp, $content);
     fclose($fp);
   }
-  
+
   # Update flag
   $flag = substr($results[0]->text, 0, strrpos($results[0]->text, '#'));
   if (($fp = fopen('content_flag.php', 'w')) == FALSE) {
@@ -89,8 +103,6 @@ if ($_SESSION['SESS_QUERY']) {
     fwrite($fp, $flag);
     fclose($fp);
   }
-
-  session_destroy();
 }
 else {
   header('Location: ./');
