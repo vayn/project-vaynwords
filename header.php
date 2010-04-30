@@ -1,17 +1,13 @@
 <?php
-/*
- * header.php
+/**
+ * Author:
+ *    Vayn a.k.a. VT <vt@elnode.com>
+ *    http://elnode.com
  *
- * Author: Jixia Lab <vt@elnode.com>
- * Site: http://lab.jixia.org/
- *
- * ver0.4
- * 
- * 04/24/2010
- *
+ *    File:             header.php
+ *    Create Date:      2010年04月30日 星期五 05时58分42秒
  */
 ?>
-<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" /> 
@@ -19,7 +15,7 @@
   <meta http-equiv="cache-control" content="no-cache" />
   <title><?php echo $vw_sitename; ?> - Project Vaynwords</title>
 <?php
-  if (file_exists('content.php') && (basename($_SERVER['SCRIPT_NAME']) == 'index.php')) {
+  if (file_exists('vws_data.xml') && (basename($_SERVER['SCRIPT_NAME']) == 'index.php')) {
     echo '  <link rel="stylesheet" type="text/css" media="screen" href="style.css" />' . "\n";
   }
   else {
@@ -30,10 +26,11 @@
 </head>
 <body>
 <?php
-if (file_exists('content.php') && (basename($_SERVER['SCRIPT_NAME']) == 'index.php')) {
+if (file_exists('vws_data.xml') && (basename($_SERVER['SCRIPT_NAME']) == 'index.php')) {
 ?>  
 <div id="header"><h1><?php echo $vw_sitename; ?> <a href="http://twitter.com/<?php echo $vw_username; ?>" title="Follow me on twitter"><img src="img/twitter_bird.png" alt="<?php $vw_username; ?>" style="vertical-align:text-bottom" /></a></h1></div>
 <div id="main">
 <?php
 }
 ?>
+

@@ -6,16 +6,16 @@
  *   Author: Jixia Lab <vt@elnode.com>
  *   Site: http://lab.jixia.org/
  *
- *   ver0.4
+ *   ver0.5.1
  *
- *   04/24/2010
+ *   04/30/2010
  *
  */
 
 body {
   background: #e4f2fd url("img/background.png") no-repeat 40px bottom;
   color: #333;
-  font-family: Verdana, sans-serif;
+  font-family: XHei, 'Dejavu Sans', Verdana, sans-serif;
   margin: 0;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -63,6 +63,7 @@ a:hover {
   margin-bottom: 18px;
   padding: 1px 2px;
   width: 700px;
+  font-family: "Segoe UI", Verdana, "Lucida Sans Regular", "Lucida Sans Unicode", Arial, sans-serif;
   text-align: left;
   -webkit-box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
   -moz-box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
