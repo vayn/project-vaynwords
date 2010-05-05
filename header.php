@@ -23,8 +23,10 @@
   }
 ?>
   <link rel="shortcut icon" href="favicon.ico" />
+<script type="text/javascript" src="js/scroll.js"></script>
 </head>
 <body>
+<div id="top"></div>
 <?php
 if (file_exists('vws_data.xml') && (basename($_SERVER['SCRIPT_NAME']) == 'index.php')) {
 ?>  

@@ -84,6 +84,15 @@ a:hover {
   padding: 5px 10px;
 }
 
+.back {
+  margin: 0;
+  padding: 5px 0 0 0;
+  font-size: 4px;
+  color: #666;
+  float: right;
+  clear: both;
+}
+
 #footer {
   margin-top: -17px;
   font-size: 11px;
