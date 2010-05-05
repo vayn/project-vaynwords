@@ -10,14 +10,18 @@
 // 从 dict.cn 获得单词音标、解释、中英文例句
 function dict_query($value_1) {
   $xml = simplexml_load_file('http://api.dict.cn/ws.php?utf8=true&q=' . $value_1);
+  if (!($xml->def == 'Not Found')) {
+    $arr['key'] = $xml->key;
+    $arr['pron'] = $xml->pron;
+    $arr['def'] = $xml->def;
+    $arr['sent_o'] = $xml->sent->orig;
+    $arr['sent_t'] = $xml->sent->trans;
 
-  $arr['key'] = $xml->key;
-  $arr['pron'] = $xml->pron;
-  $arr['def'] = $xml->def;
-  $arr['sent_o'] = $xml->sent->orig;
-  $arr['sent_t'] = $xml->sent->trans;
-
-  return $arr;
+    return $arr;
+  }
+  else {
+    return FALSE;
+  }
 }
 
 // 从 Google Dictinary 获得单词发音
@@ -40,6 +44,7 @@ function audio($value_2) {
 
 function generate_content() {
   $xml = simplexml_load_file('vws_data.xml');
+  $i = 1;
   
   foreach ($xml->word as $xml) {
     $key = $xml->key;
@@ -59,10 +64,15 @@ function generate_content() {
 
     if ($sent_o != '' || $sent_t != '') {
       echo '<tr><td class="word_box_l" colspan=3>' . $sent_o . '</td></tr>';
-      echo '<tr><td class="word_box_l" colspan=3>' . $sent_t . '</td></tr>';
+      echo '<tr><td class="word_box_l" colspan=3>' . $sent_t;
+      if ($i%5 == 0) {
+        echo '<a href="#top" title="Back to top"><div class="back">&uarr;<div></a>';
+      }
+      echo '</td></tr>';
     }
 
     echo '</table>';
+    $i++;
   }
 }
 

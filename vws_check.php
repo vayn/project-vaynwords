@@ -46,7 +46,7 @@
 
       $flag = strtolower($xml->word->key);
 
-      if ($flag == $update) {
+      if (($flag == $update) || ($xml->def == 'Not Found')) {
        require('header.php');
   ?>
       <div id="header">
