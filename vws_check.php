@@ -5,9 +5,10 @@
  *    http://elnode.com
  *
  *    File:             vws_check.php
- *    Create Date:      2010年 04月 30日 星期五 10:51:34 CST
+ *    Create Date:      2010年 05月 06日 星期四 09:04:55 CST
  */
   require('config.php');
+  require('vws_functions.php');
 
   if ($_GET['pass'] == $vw_password) {
     session_start();
@@ -41,22 +42,19 @@
         header('Location: VaynWords.php');
         exit;
       }
-      
+
+      $defExist = dict_query($update);
+
+      if ($defExist == FALSE) {
+        exit;
+      }
+
       $xml = simplexml_load_file('vws_data.xml');
 
       $flag = strtolower($xml->word->key);
 
-      if (($flag == $update) || ($xml->def == 'Not Found')) {
-       require('header.php');
-  ?>
-      <div id="header">
-        <h1>No new tweets.</h1>
-      </div>
-      <div id="main">
-      <div id="whale_error"><img src="./img/whale_error.gif" alt="No new tweets." /></div>
-  <?php
-        require('footer.php');
-        session_destroy(); 
+      if ($flag == $update) {
+        exit; 
       }
       else {
         header('Location: VaynWords.php');

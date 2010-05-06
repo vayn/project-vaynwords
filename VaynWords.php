@@ -5,7 +5,7 @@
  *    http://elnode.com
  *
  *    File:             VaynWord.php
- *    Create Date:      2010年 04月 30日 星期五 10:25:54 CST
+ *    Create Date:      2010年 05月 06日 星期四 09:04:21 CST
  */
   session_start();
   
@@ -32,7 +32,7 @@
         $word = strtolower(trim(substr($key->text, 0, strrpos($key->text, '#')))); // Get word from hashtag tweet
         $word_def = dict_query($word);
 
-        if (dict_query != FALSE) {
+        if ($word_def != FALSE) {
           // add child element of <words>
           $data_root_word = $data_root->appendChild($dom->createElement('word'));
           
@@ -86,7 +86,7 @@
           // Get definitions from dict.cn
           $word_def = dict_query($word);
 
-          if (dict_query != FALSE) {
+          if ($word_def != FALSE) {
             // Create new child element of <words>
             $data_root_word = $xml->createElement('word');
             $data_root_word->appendChild($xml->createElement('key', $word_def['key']));
