@@ -37,6 +37,7 @@
 
   // Save new data into database
   $xml->save('vws_data.xml');
+  echo "Update Successfully!";
 
 ?>
 
