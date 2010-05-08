@@ -23,7 +23,8 @@
   }
 ?>
   <link rel="shortcut icon" href="favicon.ico" />
-<script type="text/javascript" src="js/scroll.js"></script>
+  <link rel="alternate" type="application/rss+xml" href="feed/" />
+  <script type="text/javascript" src="js/scroll.js"></script>
 </head>
 <body>
 <div id="top"></div>

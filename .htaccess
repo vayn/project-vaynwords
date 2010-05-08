@@ -1,0 +1,4 @@
+RewriteEngine On
+
+RewriteRule feed/ vws_rss.php
+RewriteRule feed feed/ [R]

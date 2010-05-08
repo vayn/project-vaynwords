@@ -47,6 +47,7 @@ function generate_content() {
   $i = 1;
   
   foreach ($xml->word as $xml) {
+    $id = $xml->attributes();
     $key = $xml->key;
     $pron = $xml->defs->pron;
     $def = $xml->defs->def;
@@ -56,7 +57,7 @@ function generate_content() {
     echo '<table class="word_fleet" cellspacing="2">';
     echo '<tr>';
     echo '<td class="word_box_s">';
-    echo $key;
+    echo $key . '<span id="' . $id . '"></span>';
     echo '</td>';
     echo '<td class="word_box_s">/' . $pron . '/ ' . audio($key) . '</td>';
     echo '<td class="word_box_s">' . $def . '</td>';

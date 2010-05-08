@@ -88,6 +88,7 @@ a:hover {
   margin: 0;
   padding: 5px 0 0 0;
   font-size: 4px;
+  font-size: 12px !important;
   color: #666;
   float: right;
   clear: both;

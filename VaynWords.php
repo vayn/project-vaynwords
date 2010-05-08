@@ -5,15 +5,15 @@
  *    http://elnode.com
  *
  *    File:             VaynWord.php
- *    Create Date:      2010年 05月 06日 星期四 09:04:21 CST
+ *    Create Date:      2010年 05月 08日 星期六 04:41:35 CST
  */
   session_start();
   
   if ($_SESSION['SESS_QUERY']) {
     session_destroy();
-    include_once("./config.php");
-    include_once("./TwitterSearch.php");
-    include_once("./vws_functions.php");
+    include_once('config.php');
+    include_once('TwitterSearch.php');
+    include_once('vws_functions.php');
     
     // Search from Twitter
     $search = new TwitterSearch();
@@ -27,15 +27,24 @@
 
       // add root - <words>
       $data_root = $dom->appendChild($dom->createElement('words'));
+      $i=1;
 
       foreach ($results as $key) {
         $word = strtolower(trim(substr($key->text, 0, strrpos($key->text, '#')))); // Get word from hashtag tweet
         $word_def = dict_query($word);
 
+        $date = $key->created_at;
+
         if ($word_def != FALSE) {
           // add child element of <words>
           $data_root_word = $data_root->appendChild($dom->createElement('word'));
-          
+
+          $word_attr = $data_root_word->appendChild($dom->createAttribute('id'));
+          $word_attr->appendChild($dom->createTextNode($i));
+
+          $data_root_word_date = $data_root_word->appendChild($dom->createElement('date'));
+          $data_root_word_date->appendChild($dom->createTextNode($date));          
+
           $data_root_word_key = $data_root_word->appendChild($dom->createElement('key'));
           $data_root_word_key->appendChild($dom->createTextNode($word_def['key']));
 
@@ -54,6 +63,8 @@
 
           $data_root_word_defs_sent_trans = $data_root_word_defs_sent->appendChild($dom->createElement('trans'));
           $data_root_word_defs_sent_trans->appendChild($dom->createTextNode($word_def['sent_t']));
+
+          $i++;
         }
       }
 
@@ -70,12 +81,21 @@
       $flag = $xpath->query('/words/word/key[1]')->item(0)->textContent;
       $flag = strtolower($flag);
 
+      // Get biggest ID
+      $id = $xml->getElementsByTagName('word');
+      foreach ($id as $id) {
+        $i = $id->getAttribute('id');
+      }
+      $i = $i+1;
+
       // Query first element with Xpath
       $top = $xpath->query('/words/word[1]')->item(0);
 
       foreach ($results as $key) {
         // Get word from hashtag tweet
         $word = strtolower(trim(substr($key->text, 0, strrpos($key->text, '#'))));
+
+        $date = $key->created_at;
         
         // If the latest word equal to word from database, stop inserting data
         if ($flag == $word) {
@@ -89,6 +109,12 @@
           if ($word_def != FALSE) {
             // Create new child element of <words>
             $data_root_word = $xml->createElement('word');
+
+            $word_attr = $data_root_word->appendChild($xml->createAttribute('id'));
+            $word_attr->appendChild($xml->createTextNode($i));
+
+            $data_root_word->appendChild($xml->createElement('date', $date));
+            
             $data_root_word->appendChild($xml->createElement('key', $word_def['key']));
             $data_root_word_defs = $data_root_word->appendChild($xml->createElement('defs'));
 
@@ -101,9 +127,15 @@
 
             // Insert new element before the top of old elements
             $top->parentNode->insertBefore($data_root_word, $top);
+            
+            $i++;
           }
         }
       }
+      // Change ID of the last word to the biggest one
+      $id = $id->appendChild($xml->createAttribute('id'));
+      $id->appendChild($xml->createTextNode($i));
+
       // Save new data into database
       $xml->save('vws_data.xml');
     }
