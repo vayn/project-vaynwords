@@ -30,7 +30,7 @@
   <generator>http://elnode.com/</generator>
   <language>en</language>
 
-  <xsl:apply-templates select="words/word[position() &lt; 25]" />
+  <xsl:apply-templates select="words/word[position() &lt; $vw_rss_output]" />
  
   </channel>
   </rss>
