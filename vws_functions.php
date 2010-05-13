@@ -115,7 +115,7 @@ function generate_content($page = 1) {
       $nlink = '<a href="?page=' . ($page + 1) . '">Next &raquo;</a>';
     }
 
-    // Assign all the page numbers and links to the array
+    // Assign all the page numbers and links to the string
     for ($l = 1; $l < $pages+1; $l++) {
       if ($page == $l) {
         $link .= ' <span class="current">' . $l . '</span> '; // If we are on the current page
@@ -124,9 +124,9 @@ function generate_content($page = 1) {
         $link .= ' <a href="?page=' . $l . '" class="page">' . $l . '</a> ';
       }
     }
-  }
 
-  $arr[] = '<div id="pagination">' . $plink . $link . $nlink . '</div>';
+    $arr[] = '<div id="pagination">' . $plink . $link . $nlink . '</div>';
+  }
 
   foreach ($arr as $key) {
     echo $key;
