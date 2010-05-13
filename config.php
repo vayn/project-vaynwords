@@ -17,8 +17,8 @@ $vw_useragent = 'JxLab'; // Your information, e.g. email, blog or any other thin
 
 $vw_password = ''; // The key to run vws_check.php
 
-$vw_rss_output = '25'; // The number of RSS output
+$vw_rss_output = 25; // The number of RSS output
 
-$vw_perpage = ''; // The number of each page displays
+$vw_perpage = 25; // The number of each page displays
 
 ?>
