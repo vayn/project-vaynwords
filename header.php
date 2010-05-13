@@ -32,7 +32,7 @@
 if (file_exists('vws_data.xml') && (basename($_SERVER['SCRIPT_NAME']) == 'index.php')) {
 ?>  
 <div id="header"><h1><?php echo $vw_sitename; ?> <a href="http://twitter.com/<?php echo $vw_username; ?>" title="Follow me on twitter"><img src="img/twitter_bird.png" alt="<?php $vw_username; ?>" style="vertical-align:text-bottom" /></a></h1></div>
-<div id="main">
+<div id="main" class="clearfix">
 <?php
 }
 ?>

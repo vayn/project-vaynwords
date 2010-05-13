@@ -101,13 +101,14 @@ a:hover {
 
 /* Pagination */
 #pagination {
+  float: left;
   margin: 12px 0 40px;
+  padding-left: 10px;
   font-family: Monaco, "Courier New", Fixedsys, Courier, monospace;
   font-size: 12px;
 }
 
 #pagination a {
-	line-height: 16px;
   color: #333;
 	background: #f3f3ec;
 	border-bottom: 1px solid #bbb;
@@ -120,16 +121,16 @@ a:hover {
 	text-shadow: 0 1px 0 #fff;
 }
 
+#pagination a:active {
+  background: #ccc;
+}
+
 #pagination a:hover {
   border: none;
 	border-top: 1px solid #bbb;
 	border-left: 1px solid #ddd;
 	text-decoration: none;
 	text-shadow: 0 -1px 0 #fff;
-}
-
-#pagination a:active {
-  background: #ccc;
 }
 
 #pagination span.current {
@@ -143,6 +144,27 @@ a:hover {
   padding: 5px 11px;
 	font-weight: bold;
 	color: #fff;
-	text-shadow: 0 1px 0 #630;
+	text-shadow: 0 1px 0 #666;
+}
+
+/* clearfix */
+.clearfix:after {
+  display: block;
+  clear: both;
+  content: "";
+  visibility: hidden;
+  height: 0;
+}
+
+.clearfix {
+	display: inline-block;
+}
+
+html[xmlns] .clearfix {
+	display: block;
+}
+
+* html .clearfix {
+	height: 1%;
 }
  
