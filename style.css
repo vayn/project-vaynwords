@@ -6,9 +6,9 @@
  *   Author: Jixia Lab <vt@elnode.com>
  *   Site: http://lab.jixia.org/
  *
- *   ver0.5.1
+ *   ver0.5.4
  *
- *   04/30/2010
+ *   05/13/2010
  *
  */
 
@@ -84,7 +84,7 @@ a:hover {
   padding: 5px 10px;
 }
 
-.back {
+.word_fleet .back {
   margin: 0;
   padding: 5px 0 0 0;
   font-size: 4px;
@@ -99,3 +99,50 @@ a:hover {
   font-size: 11px;
 }
 
+/* Pagination */
+#pagination {
+  margin: 12px 0 40px;
+  font-family: Monaco, "Courier New", Fixedsys, Courier, monospace;
+  font-size: 12px;
+}
+
+#pagination a {
+	line-height: 16px;
+  color: #333;
+	background: #f3f3ec;
+	border-bottom: 1px solid #bbb;
+	border-right: 1px solid #ddd;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	text-decoration: none;
+	padding: 5px 11px;
+	text-shadow: 0 1px 0 #fff;
+}
+
+#pagination a:hover {
+  border: none;
+	border-top: 1px solid #bbb;
+	border-left: 1px solid #ddd;
+	text-decoration: none;
+	text-shadow: 0 -1px 0 #fff;
+}
+
+#pagination a:active {
+  background: #ccc;
+}
+
+#pagination span.current {
+  border: none;
+	border-top: 1px solid #bbb;
+	border-left: 1px solid #ddd;
+  -moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	background: #1785eb;
+  padding: 5px 11px;
+	font-weight: bold;
+	color: #fff;
+	text-shadow: 0 1px 0 #630;
+}
+ 

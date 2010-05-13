@@ -4,8 +4,8 @@
  *    Vayn a.k.a. VT <vt@elnode.com>
  *    http://elnode.com
  *
- *    File:             confi.php
- *    Create Date:      2010年04月30日 星期五 10时43分37秒
+ *    File:             config.php
+ *    Create Date:      2010年 05月 13日 星期四 20:11:51 CST
  */
 $vw_sitename = 'Project VaynWords'; // Your site name
 
@@ -18,5 +18,7 @@ $vw_useragent = 'JxLab'; // Your information, e.g. email, blog or any other thin
 $vw_password = ''; // The key to run vws_check.php
 
 $vw_rss_output = '25'; // The number of RSS output
+
+$vw_perpage = ''; // The number of each page displays
 
 ?>

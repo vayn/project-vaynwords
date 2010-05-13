@@ -22,7 +22,7 @@
   /*
   $date = $xml->getElementsByTagName('date');
   foreach ($date as $date) {
-    $id->parentNode->removeChild($date);
+    $date->parentNode->removeChild($date);
   }
    */
 

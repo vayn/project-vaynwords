@@ -5,7 +5,7 @@
  *    http://elnode.com
  *
  *    File:             vws_functions.php
- *    Create Date:      2010年04月30日 星期五 00时36分44秒
+ *    Create Date:      2010年 05月 13日 星期四 18:43:21 CST
  */
 // 从 dict.cn 获得单词音标、解释、中英文例句
 function dict_query($value_1) {
@@ -42,10 +42,14 @@ function audio($value_2) {
   return $audio;
 }
 
-function generate_content() {
+function generate_content($page = 1) {
+  global $vw_perpage;
+
   $xml = simplexml_load_file('vws_data.xml');
-  $i = 1;
-  
+  $i = 0;
+  $arr = array();
+ 
+  // Generate Words table array
   foreach ($xml->word as $xml) {
     $id = $xml->attributes();
     $key = $xml->key;
@@ -54,27 +58,80 @@ function generate_content() {
     $sent_o = $xml->defs->sent->orig;
     $sent_t = $xml->defs->sent->trans;
 
-    echo '<table class="word_fleet" cellspacing="2">';
-    echo '<tr>';
-    echo '<td class="word_box_s">';
-    echo $key . '<span id="' . $id . '"></span>';
-    echo '</td>';
-    echo '<td class="word_box_s">/' . $pron . '/ ' . audio($key) . '</td>';
-    echo '<td class="word_box_s">' . $def . '</td>';
-    echo '</tr>';
+    $arr[$i] = '<table class="word_fleet" cellspacing="2">';
+    $arr[$i] .= '<tr>';
+    $arr[$i] .= '<td class="word_box_s">';
+    $arr[$i] .= $key . '<span id="' . $id . '"></span>';
+    $arr[$i] .= '</td>';
+    $arr[$i] .= '<td class="word_box_s">/' . $pron . '/ ' . audio($key) . '</td>';
+    $arr[$i] .= '<td class="word_box_s">' . $def . '</td>';
+    $arr[$i] .= '</tr>';
 
     if ($sent_o != '' || $sent_t != '') {
-      echo '<tr><td class="word_box_l" colspan=3>' . $sent_o . '</td></tr>';
-      echo '<tr><td class="word_box_l" colspan=3>' . $sent_t;
-      if ($i%5 == 0) {
-        echo '<a href="#top" title="Back to top"><div class="back">&uarr;<div></a>';
+      $arr[$i] .= '<tr><td class="word_box_l" colspan=3>' . $sent_o . '</td></tr>';
+      $arr[$i] .= '<tr><td class="word_box_l" colspan=3>' . $sent_t;
+      if (($i%5 == 0) && ($i != 0)) {
+        $arr[$i] .= '<a href="#top" title="Back to top"><div class="back">&uarr;<div></a>';
       }
-      echo '</td></tr>';
+      $arr[$i] .= '</td></tr>';
     }
 
-    echo '</table>';
+    $arr[$i] .= '</table>';
     $i++;
   }
+
+  // Pagination
+  $count = count($arr);
+  $pages = ceil($count / $vw_perpage);
+
+  if (isset($_GET['page'])) {
+    if (($_GET['page'] > 0) && ($_GET['page'] < $pages+1)) {
+      $page = (int) $_GET['page'];
+    }
+    elseif ($_GET['page'] > $pages) {
+      header('Location: index.php?page=' . $pages);
+      exit;
+    }
+    else {
+      header('Location: index.php?page=1');
+      exit;
+    }
+  }
+
+  $start = ceil(($page - 1) * $vw_perpage);
+
+  $arr = array_slice($arr, $start, $vw_perpage);
+
+  if ($pages > 1) {
+    // Assign the previous page
+    if ($page != 1) {
+      $plink = '<a href="?page=' . ($page - 1) . '">&laquo; Prev</a>';
+
+      if ($page != $pages) {
+        $nlink = '<a href="?page=' . ($page + 1) . '">Next &raquo;</a>';
+      }
+    }
+    else {
+      $nlink = '<a href="?page=' . ($page + 1) . '">Next &raquo;</a>';
+    }
+
+    // Assign all the page numbers and links to the array
+    for ($l = 1; $l < $pages+1; $l++) {
+      if ($page == $l) {
+        $link .= ' <span class="current">' . $l . '</span> '; // If we are on the current page
+      }
+      else {
+        $link .= ' <a href="?page=' . $l . '" class="page">' . $l . '</a> ';
+      }
+    }
+  }
+
+  $arr[] = '<div id="pagination">' . $plink . $link . $nlink . '</div>';
+
+  foreach ($arr as $key) {
+    echo $key;
+  }
+
 }
 
 ?>
