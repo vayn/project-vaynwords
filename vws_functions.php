@@ -89,11 +89,11 @@ function generate_content($page = 1) {
       $page = (int) $_GET['page'];
     }
     elseif ($_GET['page'] > $pages) {
-      header('Location: index.php?page=' . $pages);
+      header('Location: ?page=' . $pages);
       exit;
     }
     else {
-      header('Location: index.php?page=1');
+      header('Location: ?page=1');
       exit;
     }
   }
