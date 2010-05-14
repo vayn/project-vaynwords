@@ -13,15 +13,21 @@
  */
 
 body {
-  background: #e4f2fd url("img/background.png") no-repeat 40px bottom;
+  background: #deeaf6 url("img/background.png") no-repeat 40px bottom; /*#e4f2fd*/
   color: #333;
   font-family: XHei, 'Dejavu Sans', Verdana, sans-serif;
   margin: 0;
+  padding: 0;
   overflow-x: hidden;
   overflow-y: scroll;
-  padding: 11px 0px;
   text-align: center;
-  text-shadow: #999999 1px 1px 7px;
+  text-shadow: 0px 1px 0px #ddd;
+}
+
+h1 {
+  line-height: 100%;
+  padding-top: 11px;
+  text-shadow: 0px 1px 0px #eee;
 }
 
 img {
@@ -55,24 +61,23 @@ a:hover {
   margin: 0 auto 0 auto;
   padding: 0 20px 20px 20px;
   width: 700px;
+  line-height: 150%;
 }
 
 .word_fleet {
   background: #fff;
-  border: 1px solid #ccc;
+  border: 1px solid #eee;
   margin-bottom: 18px;
   padding: 1px 2px;
   width: 700px;
   font-family: "Segoe UI", Verdana, "Lucida Sans Regular", "Lucida Sans Unicode", Arial, sans-serif;
   text-align: left;
-  -webkit-box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
-  -moz-border-radius-topleft: 20px;
-  -moz-border-radius-bottomright: 20px;
-  -webkit-border-top-left-radius: 20px;
-  -webkit-border-bottom-right-radius: 20px;
-  border-top-left-radius: 20px;
-  border-bottom-right-radius: 20px;
+  -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+  -moz-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
 }
 
 .word_box_s {
@@ -96,6 +101,7 @@ a:hover {
 
 #footer {
   margin-top: -17px;
+  padding-bottom: 11px;
   font-size: 11px;
 }
 
@@ -110,15 +116,15 @@ a:hover {
 
 #pagination a {
   color: #333;
-	background: #f3f3ec;
-	border-bottom: 1px solid #bbb;
-	border-right: 1px solid #ddd;
-	-moz-border-radius: 4px;
-	-webkit-border-radius: 4px;
-	border-radius: 4px;
-	text-decoration: none;
-	padding: 5px 11px;
-	text-shadow: 0 1px 0 #fff;
+  background: #f3f3ec;
+  border-bottom: 1px solid #bbb;
+  border-right: 1px solid #ddd;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  text-decoration: none;
+  padding: 5px 11px;
+  text-shadow: 0 1px 0 #fff;
 }
 
 #pagination a:active {
@@ -127,24 +133,24 @@ a:hover {
 
 #pagination a:hover {
   border: none;
-	border-top: 1px solid #bbb;
-	border-left: 1px solid #ddd;
-	text-decoration: none;
-	text-shadow: 0 -1px 0 #fff;
+  border-top: 1px solid #bbb;
+  border-left: 1px solid #ddd;
+  text-decoration: none;
+  text-shadow: 0 -1px 0 #fff;
 }
 
 #pagination span.current {
   border: none;
-	border-top: 1px solid #bbb;
-	border-left: 1px solid #ddd;
+  border-top: 1px solid #bbb;
+  border-left: 1px solid #ddd;
   -moz-border-radius: 4px;
-	-webkit-border-radius: 4px;
-	border-radius: 4px;
-	background: #1785eb;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  background: #1785eb;
   padding: 5px 11px;
-	font-weight: bold;
-	color: #fff;
-	text-shadow: 0 1px 0 #666;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 1px 0 #666;
 }
 
 /* clearfix */
@@ -157,14 +163,14 @@ a:hover {
 }
 
 .clearfix {
-	display: inline-block;
+  display: inline-block;
 }
 
 html[xmlns] .clearfix {
-	display: block;
+  display: block;
 }
 
 * html .clearfix {
-	height: 1%;
+  height: 1%;
 }
  
