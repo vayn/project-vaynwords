@@ -107,9 +107,9 @@
         $date = $key->created_at;
 
         foreach ($tweet as $word) {
+
           // If the latest word equal to word from database, stop inserting data
-          if ($flag == $word) {
-            header('Location: ./');
+          if ($flag == strtolower($word)) {
             break;
           }
           else {
@@ -142,6 +142,12 @@
             }
           }
         }
+
+        // Quit from loop
+        if ($flag == strtolower($word)) {
+          break;
+        }
+
       }
       // Change ID of the last word to the biggest one
       $id = $id->appendChild($xml->createAttribute('id'));
