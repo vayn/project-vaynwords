@@ -36,7 +36,11 @@
     }
     else {
       $update = substr($results[0]->text, 0, strrpos($results[0]->text, '#'));
-      $update = strtolower(str_replace(' ', '', $update));
+      $update = explode(',', $update);
+      $update = array_map('trim', $update);
+      $update = $update[0];
+
+      $update = strtolower($update);
 
       if (!file_exists('vws_data.xml')) {
         header('Location: VaynWords.php');

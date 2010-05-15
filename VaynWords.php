@@ -30,41 +30,48 @@
       $i=1;
 
       foreach ($results as $key) {
-        $word = strtolower(trim(substr($key->text, 0, strrpos($key->text, '#')))); // Get word from hashtag tweet
-        $word_def = dict_query($word);
+        // Get word from hashtag tweet
+        $tweet = substr($key->text, 0, strrpos($key->text, '#'));
+        $tweet = explode(',', $tweet);
+        $tweet = array_map('trim', $tweet);
 
-        $date = $key->created_at;
+        foreach ($tweet as $word) {
 
-        if ($word_def != FALSE) {
-          // add child element of <words>
-          $data_root_word = $data_root->appendChild($dom->createElement('word'));
+          $word_def = dict_query($word);
 
-          $word_attr = $data_root_word->appendChild($dom->createAttribute('id'));
-          $word_attr->appendChild($dom->createTextNode($i));
+          $date = $key->created_at;
 
-          $data_root_word_date = $data_root_word->appendChild($dom->createElement('date'));
-          $data_root_word_date->appendChild($dom->createTextNode($date));          
+          if ($word_def != FALSE) {
+            // add child element of <words>
+            $data_root_word = $data_root->appendChild($dom->createElement('word'));
 
-          $data_root_word_key = $data_root_word->appendChild($dom->createElement('key'));
-          $data_root_word_key->appendChild($dom->createTextNode($word_def['key']));
+            $word_attr = $data_root_word->appendChild($dom->createAttribute('id'));
+            $word_attr->appendChild($dom->createTextNode($i));
 
-          $data_root_word_defs = $data_root_word->appendChild($dom->createElement('defs'));
+            $data_root_word_date = $data_root_word->appendChild($dom->createElement('date'));
+            $data_root_word_date->appendChild($dom->createTextNode($date));          
 
-          $data_root_word_defs_pron = $data_root_word_defs->appendChild($dom->createElement('pron'));
-          $data_root_word_defs_pron->appendChild($dom->createTextNode($word_def['pron']));
+            $data_root_word_key = $data_root_word->appendChild($dom->createElement('key'));
+            $data_root_word_key->appendChild($dom->createTextNode($word_def['key']));
 
-          $data_root_word_defs_def = $data_root_word_defs->appendChild($dom->createElement('def'));
-          $data_root_word_defs_def->appendChild($dom->createTextNode($word_def['def']));
+            $data_root_word_defs = $data_root_word->appendChild($dom->createElement('defs'));
 
-          $data_root_word_defs_sent = $data_root_word_defs->appendChild($dom->createElement('sent'));
+            $data_root_word_defs_pron = $data_root_word_defs->appendChild($dom->createElement('pron'));
+            $data_root_word_defs_pron->appendChild($dom->createTextNode($word_def['pron']));
 
-          $data_root_word_defs_sent_orig = $data_root_word_defs_sent->appendChild($dom->createElement('orig'));
-          $data_root_word_defs_sent_orig->appendChild($dom->createTextNode($word_def['sent_o']));
+            $data_root_word_defs_def = $data_root_word_defs->appendChild($dom->createElement('def'));
+            $data_root_word_defs_def->appendChild($dom->createTextNode($word_def['def']));
 
-          $data_root_word_defs_sent_trans = $data_root_word_defs_sent->appendChild($dom->createElement('trans'));
-          $data_root_word_defs_sent_trans->appendChild($dom->createTextNode($word_def['sent_t']));
+            $data_root_word_defs_sent = $data_root_word_defs->appendChild($dom->createElement('sent'));
 
-          $i++;
+            $data_root_word_defs_sent_orig = $data_root_word_defs_sent->appendChild($dom->createElement('orig'));
+            $data_root_word_defs_sent_orig->appendChild($dom->createTextNode($word_def['sent_o']));
+
+            $data_root_word_defs_sent_trans = $data_root_word_defs_sent->appendChild($dom->createElement('trans'));
+            $data_root_word_defs_sent_trans->appendChild($dom->createTextNode($word_def['sent_t']));
+
+            $i++;
+          }
         }
       }
 
@@ -86,6 +93,7 @@
       foreach ($id as $id) {
         $i = $id->getAttribute('id');
       }
+      // Generate new biggest ID
       $i = $i+1;
 
       // Query first element with Xpath
@@ -93,42 +101,45 @@
 
       foreach ($results as $key) {
         // Get word from hashtag tweet
-        $word = strtolower(trim(substr($key->text, 0, strrpos($key->text, '#'))));
-
+        $tweet = substr($key->text, 0, strrpos($key->text, '#'));
+        $tweet = explode(',', $tweet);
+        $tweet = array_map('trim', $tweet);
         $date = $key->created_at;
-        
-        // If the latest word equal to word from database, stop inserting data
-        if ($flag == $word) {
-          header('Location: ./');
-          break;
-        }
-        else {
-          // Get definitions from dict.cn
-          $word_def = dict_query($word);
 
-          if ($word_def != FALSE) {
-            // Create new child element of <words>
-            $data_root_word = $xml->createElement('word');
+        foreach ($tweet as $word) {
+          // If the latest word equal to word from database, stop inserting data
+          if ($flag == $word) {
+            header('Location: ./');
+            break;
+          }
+          else {
+            // Get definitions from dict.cn
+            $word_def = dict_query($word);
 
-            $word_attr = $data_root_word->appendChild($xml->createAttribute('id'));
-            $word_attr->appendChild($xml->createTextNode($i));
+            if ($word_def != FALSE) {
+              // Create new child element of <words>
+              $data_root_word = $xml->createElement('word');
 
-            $data_root_word->appendChild($xml->createElement('date', $date));
-            
-            $data_root_word->appendChild($xml->createElement('key', $word_def['key']));
-            $data_root_word_defs = $data_root_word->appendChild($xml->createElement('defs'));
+              $word_attr = $data_root_word->appendChild($xml->createAttribute('id'));
+              $word_attr->appendChild($xml->createTextNode($i));
 
-            $data_root_word_defs->appendChild($xml->createElement('pron', $word_def['pron']));
-            $data_root_word_defs->appendChild($xml->createElement('def', $word_def['def']));
-            $data_root_word_defs_sent = $data_root_word_defs->appendChild($xml->createElement('sent'));
+              $data_root_word->appendChild($xml->createElement('date', $date));
+              
+              $data_root_word->appendChild($xml->createElement('key', $word_def['key']));
+              $data_root_word_defs = $data_root_word->appendChild($xml->createElement('defs'));
 
-            $data_root_word_defs_sent->appendChild($xml->createElement('orig', $word_def['sent_o']));
-            $data_root_word_defs_sent->appendChild($xml->createElement('trans', $word_def['sent_t']));
+              $data_root_word_defs->appendChild($xml->createElement('pron', $word_def['pron']));
+              $data_root_word_defs->appendChild($xml->createElement('def', $word_def['def']));
+              $data_root_word_defs_sent = $data_root_word_defs->appendChild($xml->createElement('sent'));
 
-            // Insert new element before the top of old elements
-            $top->parentNode->insertBefore($data_root_word, $top);
-            
-            $i++;
+              $data_root_word_defs_sent->appendChild($xml->createElement('orig', $word_def['sent_o']));
+              $data_root_word_defs_sent->appendChild($xml->createElement('trans', $word_def['sent_t']));
+
+              // Insert new element before the top of old elements
+              $top->parentNode->insertBefore($data_root_word, $top);
+              
+              $i++;
+            }
           }
         }
       }
