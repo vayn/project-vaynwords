@@ -30,7 +30,7 @@
 
   <item>
     <title><xsl:value-of select="key" /></title>
-    <link>http://lab.jixia.org/project_vws/index.php#id=<xsl:value-of select="@id" /></link>
+    <link>http://localhost/jxlab/vws_mine/index.php#<xsl:value-of select="@id" /></link>
     <description>
       <xsl:value-of select="key" /> /<xsl:value-of select="defs/pron" />/&lt;br/&gt;&lt;br/&gt;
       <xsl:value-of select="defs/def" />
