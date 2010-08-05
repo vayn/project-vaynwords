@@ -138,12 +138,12 @@ function generate_content($page = 1) {
             $pres = mysql_query($psql);
             $j = 0;
             while ($prow = mysql_fetch_assoc($pres)) {
-                $words[$i]['type'][$j][0] = $prow['type'];
+                $words[$i]['type'][$j]['pos'] = $prow['type'];
                 $dsql = "SELECT m_en, m_zh, eg_en, eg_zh FROM vws_def WHERE pid=" . $prow['id'] . ";";
                 $dres = mysql_query($dsql);
                 $k = 0;
                 while ($drow = mysql_fetch_assoc($dres)) {
-                    $words[$i]['type'][$j][1]['def'][$k] = array('m_en'=>$drow['m_en'], 'm_zh'=>$drow['m_zh'], 'eg_en'=>$drow['eg_en'], 'eg_zh'=>$drow['eg_zh']);
+                    $words[$i]['type'][$j]['def'][$k] = array('m_en'=>$drow['m_en'], 'm_zh'=>$drow['m_zh'], 'eg_en'=>$drow['eg_en'], 'eg_zh'=>$drow['eg_zh']);
                     $k++;
                 }
                 $j++;
