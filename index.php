@@ -9,7 +9,6 @@
  */
 require('config.php');
 require('vws_functions.php');
-require('header.php');
 
 if ($db = mysql_connect($dbhost, $dbuser, $dbpassword)) {
     mysql_select_db($dbdatabase, $db);
@@ -22,7 +21,7 @@ if ($db = mysql_connect($dbhost, $dbuser, $dbpassword)) {
     $pages = ceil($amount/$vw_perpage);
 
     if (isset($_GET['page'])) {
-        if (($_GET['page'] > 0) && ($_GET['page'] < $pages+1)) {
+        if (($_GET['page'] > 1) && ($_GET['page'] < $pages+1)) {
             $page = (int) $_GET['page'];
         }
         elseif ($_GET['page'] > $pages) {
@@ -30,7 +29,7 @@ if ($db = mysql_connect($dbhost, $dbuser, $dbpassword)) {
             exit;
         }
         else {
-            header('Location: ?page=1');
+            header('Location: ./');
             exit;
         }
     }
@@ -38,6 +37,7 @@ if ($db = mysql_connect($dbhost, $dbuser, $dbpassword)) {
          $page = 1;
     }
 
+    require('header.php');
     generate_content();
 }
 else {

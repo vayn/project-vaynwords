@@ -30,16 +30,21 @@ function dict_query($value_1) {
 //
 // 从 GDict 获得单词数据
 //
-function gdic_query($w) {
+function gdict_query($w) {
     $json = file_get_contents("http://www.google.com/dictionary/json?callback=dict_api.callbacks.id100&q={$w}&sl=en&tl=zh&restrict=pr%2Cde&client=te");
     $json = substr($json, strpos($json, "(")+1, -10);
     $json = str_replace("\\", "\\\\", $json);
     $decode = json_decode($json, true);
 
+    if (!$decode['primaries']) {
+        return FALSE;
+    }
+
     $aDecode = $aPhonetic = $aMeaning = array();
 
     $aDecode = $decode['primaries'][0];
 
+    $aPhonetic['key'] = $w;
     $aPhonetic['label'] = $aDecode['terms'][1]['labels'][0]['text'];
     $aPhonetic['text'] = $aDecode['terms'][1]['text'];
     $aPhonetic['sound'] = $aDecode['terms'][2]['text'];
@@ -95,7 +100,7 @@ function gdic_query($w) {
 
 
 //
-// 从 Google Dictinary 获得单词发音
+// Google Dictionary 单词发音
 //
 function gsound($soundUrl) {
     $ueUrl = urlencode($soundUrl);
@@ -235,4 +240,3 @@ function pagination($aContent) {
 }
 
 ?>
-

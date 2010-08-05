@@ -7,9 +7,9 @@
  *    File:             VaynWord.php
  *    Create Date:      2010年 08月 03日 星期二 00:32:21 CST
  */
-include_once('config.php');
-include_once('TwitterSearch.php');
-include_once('vws_functions.php');
+require('config.php');
+require('TwitterSearch.php');
+require('vws_functions.php');
 
 if ($_GET['pass'] == $vw_password) {
     // Search from Twitter
@@ -32,49 +32,49 @@ if ($_GET['pass'] == $vw_password) {
         $last_item_timestamp = 0;
     }
 
-    $list = array();
-
     foreach ($results as $key) {
         // Get word from hashtag tweet
         $tweet = substr($key->text, 0, strrpos($key->text, '#'));
         $tweet = explode(',', $tweet);
-        $tweet = array_map('trim', $tweet);    
+        $tweet = array_map('trim', $tweet);
 
         foreach ($tweet as $word) {
-            $word_def = dict_query($word);
+            $aMeaning = gdict_query($word);
             $date = $key->created_at;
 
-            if ($word_def != FALSE) {
+            if ($aMeaning != FALSE) {
                 $date = strtotime(substr($date, 0, 25));
-                $key = $word_def['key'];
-                $pron = $word_def['pron'];
-                $def = $word_def['def']);
-                $orig = $word_def['sent_o'];
-                $trans = $word_def['sent_t'];
 
                 if ($date > $last_item_timestamp) {
-                    $list[$date] =array('key'=>$key,
-                                   'date'=>$date,
-                                   'pron'=>$pron,
-                                   'def'=>$def,
-                                   'orig'=>$orig,
-                                   'trans'=>$trans);
+                    $wsql = "INSERT INTO vws_wordlist (wl_key, wl_date, label, text, sound) VALUES ('"
+                        . $aMeaning['key'] . "', "
+                        . $date . ", '"
+                        . $aMeaning['label'] . "', '"
+                        . $aMeaning['text'] . "', '"
+                        . $aMeaning['sound'] . "');";
+                    mysql_query($wsql);
+                    $wid =mysql_insert_id();
+                    $count = count($aMeaning['pos']);
+
+                    for ($nPos = 0; $nPos < $count; $nPos++) {
+                        $psql = "INSERT INTO vws_pos (wid, type) VALUES (" . $aMeaning['pos'][$nPos]['type'] . "');";
+                        mysql_query($psql);
+                        $pid = mysql_insert_id();
+
+                        $mCount = count($aMean = $aMeaning['pos'][$nPos]['meaning']);
+                        for ($j = 0; $j < $mCount; $j++) {
+                            $msql = "INSERT INTO vws_def (pid, m_en, m_zh, eg_en, eg_zh) VALUES ("
+                                . $pid . ", '"
+                                . $aMean[$j]['def'][0] . "', '"
+                                . $aMean[$j]['def'][1] . "', '"
+                                . $aMean[$j]['example'][0] . "', '"
+                                . $aMean[$j]['example'][1] . "');";
+                            mysql_query($msql);
+                        }
+                    }
                 }
             }
         }
-    }
-
-    krsort($list);
-
-    foreach ($list as $list) {
-        $sql = "INSERT INTO vws_wordlist (wl_key, wl_date, wl_pron, wl_def, wl_orig, wl_trans) VALUES(
-            '{$list['key']}',
-            '{$list['date']}',
-            '{$list['pron']}',
-            '{$list['def']}',
-            '{$list['orig']}',
-            '{$list['trans']}');";
-        mysql_query($sql);
     }
 
     echo '--END--';
