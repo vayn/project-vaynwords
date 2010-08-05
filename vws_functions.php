@@ -112,16 +112,16 @@ EOF;
 }
 
 //
-// generate content of index page
+// Get word data from database
 //
-function generate_content($page = 1) {
-    global $vw_perpage, $dbhost, $dbuser, $dbpassword, $dbdatabase;
+function pullword() {
+    global $dbhost, $dbuser, $dbpassword, $dbdatabase;
 
     $db = mysql_connect($dbhost, $dbuser, $dbpassword);
     mysql_select_db($dbdatabase, $db);
     mysql_query("set names 'utf8';");
 
-    $words = $word = array();
+    $words = array();
     $wsql = "SELECT * FROM vws_wordlist ORDER BY wl_date DESC;";
     $wres = mysql_query($wsql);
     $wnum = mysql_num_rows($wres);
@@ -148,8 +148,16 @@ function generate_content($page = 1) {
         }
     }
 
-    // Generate words table array
+    return $words;
+}
+
+//
+// Generate words table
+//
+function generate_content() {
+    $words = pullword();
     $tablecount = 0;
+
     foreach ($words as $word) {
         $id = $word['id'];
         $key = $word['key'];
@@ -219,12 +227,10 @@ function pagination($page, $aContent) {
     $start = ceil(($page - 1) * $vw_perpage);
 
     $aShowContent = array_slice($aContent, $start, $vw_perpage);
-
     if ($pages > 1) {
         // Assign the previous page
         if ($page != 1) {
             $plink = '<a href="?page=' . ($page - 1) . '">&laquo; Prev</a>';
-
             if ($page != $pages) {
                 $nlink = '<a href="?page=' . ($page + 1) . '">Next &raquo;</a>';
             }
@@ -249,7 +255,6 @@ function pagination($page, $aContent) {
     else {
         echo "There is something wrong happened.";
     }
-
 }
 
 ?>
