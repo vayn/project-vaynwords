@@ -101,7 +101,7 @@ function gsound($soundUrl) {
     $ueUrl = urlencode($soundUrl);
 
     $playcode =<<<EOF
-<object data="/dictionary/flash/SpeakerApp16.swf" type="application/x-shockwave-flash" id="pronunciation" height="16" width=" 16">
+<object data="http://www.google.com/dictionary/flash/SpeakerApp16.swf" type="application/x-shockwave-flash" id="pronunciation" height="16" width=" 16">
 <param name="movie" value="http://www.google.com/dictionary/flash/SpeakerApp16.swf">
 <param name="flashvars" value="sound_name={$ueUrl}">
 <param name="wmode" value="transparent">
@@ -112,7 +112,7 @@ EOF;
 }
 
 //
-// 主页生成
+// generate content of index page
 //
 function generate_content($page = 1) {
     global $vw_perpage, $dbhost, $dbuser, $dbpassword, $dbdatabase;
@@ -121,10 +121,6 @@ function generate_content($page = 1) {
     mysql_select_db($dbdatabase, $db);
     mysql_query("set names 'utf8';");
 
-    /*$sql = "SELECT vws_wordlist.*, vws_pos.type, vws_def.m_en, vws_def.m_zh, vws_def.eg_en, vws_def.eg_zh
-                    FROM vws_wordlist, vws_pos, vws_def
-                    WHERE vws_def.pid=vws_pos.id AND vws_pos.wid = vws_wordlist.id
-                    ORDER BY wl_date DESC;";*/
     $words = $word = array();
     $wsql = "SELECT * FROM vws_wordlist ORDER BY wl_date DESC;";
     $wres = mysql_query($wsql);
@@ -133,7 +129,7 @@ function generate_content($page = 1) {
 
     if ($wnum) {
         while ($wrow = mysql_fetch_assoc($wres)) {
-            $words[$i] = array('key'=>$wrow['wl_key'], 'label'=>$wrow['label'], 'text'=>$wrow['text'], 'sound'=>$wrow['sound'],);
+            $words[$i] = array('id'=>$wrow['id'], 'key'=>$wrow['wl_key'], 'label'=>$wrow['label'], 'text'=>$wrow['text'], 'sound'=>$wrow['sound'],);
             $psql = "SELECT id, type FROM vws_pos WHERE wid=" . $wrow['id'] . ";";
             $pres = mysql_query($psql);
             $j = 0;
@@ -152,49 +148,49 @@ function generate_content($page = 1) {
         }
     }
 
-    print_r($words);
-    exit;
-
     // Generate words table array
-    if ($numrows > 0) {
-        while ($row = mysql_fetch_assoc($result)) {
-            print_r($row);
+    $tablecount = 0;
+    foreach ($words as $word) {
+        $id = $word['id'];
+        $key = $word['key'];
+        $pron = $word['text'];
+        $mp3 = $word['sound'];
+        $def = $word['type'][0]['def'][0]['m_zh'];
+        $sent_o = $word['type'][0]['def'][0]['eg_en'];
+        $sent_t = $word['type'][0]['def'][0]['eg_zh'];
 
-            $id = $row['wl_id'];
-            $key = $row['wl_key'];
-            $pron = $row['wl_pron'];
-            $def = $row['wl_def'];
-            $sent_o = $row['wl_orig'];
-            $sent_t = $row['wl_trans'];
-
-            $arr[$i] = '<table class="word_fleet" cellspacing="2">';
-            $arr[$i] .= '<tr>';
-            $arr[$i] .= '<td class="word_box_s">';
-            $arr[$i] .= $key . '<span id="' . $id . '"></span>';
-            $arr[$i] .= '</td>';
-            if ($pron == '') {
-                $arr[$i] .='<td class="word_box_s">' . gsound($key) . '</td>';
-            }
-            else {
-                $arr[$i] .= '<td class="word_box_s">/' . $pron . '/ ' . gsound($key) . '</td>';
-            }
-            $arr[$i] .= '<td class="word_box_s">' . $def . '</td>';
-            $arr[$i] .= '</tr>';
-
-            if ($sent_o != '' || $sent_t != '') {
-                $arr[$i] .= '<tr><td class="word_box_l" colspan=3>' . $sent_o . '</td></tr>';
-                $arr[$i] .= '<tr><td class="word_box_l" colspan=3>' . $sent_t;
-                if (($i%5 == 0) && ($i != 0)) {
-                    $arr[$i] .= '<a href="#top" title="Back to top"><div class="back">&uarr;<div></a>';
-                }
-                $arr[$i] .= '</td></tr>';
-            }
-
-            $arr[$i] .= '</table>';
-            $i++;
+        $arr[$tablecount] = '<table class="word_fleet" cellspacing="2">';
+        $arr[$tablecount] .= '<tr>';
+        $arr[$tablecount] .= '<td class="word_box_s">';
+        $arr[$tablecount] .= $key . '<span id="' . $id . '"></span>';
+        $arr[$tablecount] .= '</td>';
+        if ($pron == '') {
+            $arr[$tablecount] .='<td class="word_box_s">' . gsound($mp3) . '</td>';
         }
+        else {
+            $arr[$tablecount] .= '<td class="word_box_s">/' . $pron . '/ ' . gsound($mp3) . '</td>';
+        }
+        $arr[$tablecount] .= '<td class="word_box_s">' . $def . '</td>';
+        $arr[$tablecount] .= '</tr>';
+
+        if ($sent_o != '' || $sent_t != '') {
+            $arr[$tablecount] .= '<tr><td class="word_box_l" colspan=3>' . $sent_o . '</td></tr>';
+            $arr[$tablecount] .= '<tr><td class="word_box_l" colspan=3>' . $sent_t;
+            if (($i%5 == 0) && ($i != 0)) {
+                $arr[$tablecount] .= '<a href="#top" title="Back to top"><div class="back">&uarr;<div></a>';
+            }
+            $arr[$tablecount] .= '</td></tr>';
+        }
+        $arr[$tablecount] .= '</table>';
+        $tablecount++;
     }
-    pagination(1, $arr);
+
+    $show = pagination(1, $arr);
+
+    foreach ($show as $key) {
+        echo $key;
+    }
+
 }
 
 //
@@ -222,7 +218,7 @@ function pagination($page, $aContent) {
 
     $start = ceil(($page - 1) * $vw_perpage);
 
-    $arr = array_slice($aContent, $start, $vw_perpage);
+    $aShowContent = array_slice($aContent, $start, $vw_perpage);
 
     if ($pages > 1) {
         // Assign the previous page
@@ -247,12 +243,13 @@ function pagination($page, $aContent) {
             }
         }
 
-        $arr[] = '<div id="pagination">' . $plink . $link . $nlink . '</div>';
+        $aShowContent[] = '<div id="pagination">' . $plink . $link . $nlink . '</div>';
+        return $aShowContent;
+    }
+    else {
+        echo "There is something wrong happened.";
     }
 
-    foreach ($arr as $key) {
-        echo $key;
-    }
 }
 
 ?>
