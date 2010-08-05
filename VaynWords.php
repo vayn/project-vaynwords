@@ -47,10 +47,10 @@ if ($_GET['pass'] == $vw_password) {
             if ($word_def != FALSE) {
                 $date = strtotime(substr($date, 0, 25));
                 $key = $word_def['key'];
-                $pron = addslashes($word_def['pron']);
-                $def = addslashes($word_def['def']);
-                $orig = addslashes($word_def['sent_o']);
-                $trans = addslashes($word_def['sent_t']);
+                $pron = $word_def['pron'];
+                $def = $word_def['def']);
+                $orig = $word_def['sent_o'];
+                $trans = $word_def['sent_t'];
 
                 if ($date > $last_item_timestamp) {
                     $list[$date] =array('key'=>$key,

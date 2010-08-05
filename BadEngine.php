@@ -34,7 +34,7 @@ $wl_id = 1;
 $aMean = array();
 
 foreach ($words as $key => $value) {
-    $arr = query_def($value['key']);
+    $arr = gdic_query($value['key']);
     $fsql = "UPDATE vws.vws_wordlist SET label='{$arr['label']}', text='" . str_replace('/', '', $arr['text']) . "', sound='" . $arr['sound'] . "' WHERE vws.vws_wordlist.wl_id={$wl_id};";
     mysql_query($fsql);
 
