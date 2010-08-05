@@ -11,7 +11,7 @@ $vw_sitename = 'Project VaynWords'; // Your site name
 $vw_username = 'jxlab'; // Change to your twitter username, *required*
 $vw_hashtag = 'vaynwords'; // Change to your special hashtag, *required*
 $vw_useragent = 'JxLab'; // Your information, e.g. email, blog or any other things you want to fill in
-$vw_password = 'VaynUpdateList'; // The key to run vws_check.php
+$vw_password = 'VaynUpdateList'; // The key to run VaynWords.php
 $vw_rss_output = 25; // The number of RSS output
 $vw_perpage = 25; // The number of each page displays
 

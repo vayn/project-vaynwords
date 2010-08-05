@@ -50,14 +50,14 @@ if ($_GET['pass'] == $vw_password) {
                         . $aMeaning['key'] . "', "
                         . $date . ", '"
                         . $aMeaning['label'] . "', '"
-                        . $aMeaning['text'] . "', '"
+                        . str_replace('/', '', $aMeaning['text']) . "', '"
                         . $aMeaning['sound'] . "');";
                     mysql_query($wsql);
                     $wid =mysql_insert_id();
                     $count = count($aMeaning['pos']);
 
                     for ($nPos = 0; $nPos < $count; $nPos++) {
-                        $psql = "INSERT INTO vws_pos (wid, type) VALUES (" . $aMeaning['pos'][$nPos]['type'] . "');";
+                        $psql = "INSERT INTO vws_pos (wid, type) VALUES (" . $wid . ", '" . $aMeaning['pos'][$nPos]['type'] . "');";
                         mysql_query($psql);
                         $pid = mysql_insert_id();
 
