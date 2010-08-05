@@ -121,11 +121,39 @@ function generate_content($page = 1) {
     mysql_select_db($dbdatabase, $db);
     mysql_query("set names 'utf8';");
 
-    $sql = "SELECT * FROM vws_wordlist, vws_pos, vws_def WHERE vws_def.pid=vws_pos.id AND vws_pos.wid = vws_wordlist.id ORDER BY wl_date DESC;";
-    $result = mysql_query($sql);
-    $numrows = mysql_num_rows($result);
+    /*$sql = "SELECT vws_wordlist.*, vws_pos.type, vws_def.m_en, vws_def.m_zh, vws_def.eg_en, vws_def.eg_zh
+                    FROM vws_wordlist, vws_pos, vws_def
+                    WHERE vws_def.pid=vws_pos.id AND vws_pos.wid = vws_wordlist.id
+                    ORDER BY wl_date DESC;";*/
+    $words = $word = array();
+    $wsql = "SELECT * FROM vws_wordlist ORDER BY wl_date DESC;";
+    $wres = mysql_query($wsql);
+    $wnum = mysql_num_rows($wres);
     $i = 0;
-    $arr = array();
+
+    if ($wnum) {
+        while ($wrow = mysql_fetch_assoc($wres)) {
+            $words[$i] = array('key'=>$wrow['wl_key'], 'label'=>$wrow['label'], 'text'=>$wrow['text'], 'sound'=>$wrow['sound'],);
+            $psql = "SELECT id, type FROM vws_pos WHERE wid=" . $wrow['id'] . ";";
+            $pres = mysql_query($psql);
+            $j = 0;
+            while ($prow = mysql_fetch_assoc($pres)) {
+                $words[$i]['type'][$j][0] = $prow['type'];
+                $dsql = "SELECT m_en, m_zh, eg_en, eg_zh FROM vws_def WHERE pid=" . $prow['id'] . ";";
+                $dres = mysql_query($dsql);
+                $k = 0;
+                while ($drow = mysql_fetch_assoc($dres)) {
+                    $words[$i]['type'][$j][1]['def'][$k] = array('m_en'=>$drow['m_en'], 'm_zh'=>$drow['m_zh'], 'eg_en'=>$drow['eg_en'], 'eg_zh'=>$drow['eg_zh']);
+                    $k++;
+                }
+                $j++;
+            }
+            $i++;
+        }
+    }
+
+    print_r($words);
+    exit;
 
     // Generate words table array
     if ($numrows > 0) {
