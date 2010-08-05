@@ -115,14 +115,16 @@ EOF;
 // Get word data from database
 //
 function pullword() {
-    global $dbhost, $dbuser, $dbpassword, $dbdatabase;
+    global $vw_perpage, $page, $dbhost, $dbuser, $dbpassword, $dbdatabase;
 
     $db = mysql_connect($dbhost, $dbuser, $dbpassword);
     mysql_select_db($dbdatabase, $db);
     mysql_query("set names 'utf8';");
 
+    $start = ($page==1) ? $start = 0 : $start = (($page - 1) * $vw_perpage) + 1;
+
     $words = array();
-    $wsql = "SELECT * FROM vws_wordlist ORDER BY wl_date DESC;";
+    $wsql = "SELECT * FROM vws_wordlist ORDER BY wl_date DESC LIMIT {$start}, {$vw_perpage};";
     $wres = mysql_query($wsql);
     $wnum = mysql_num_rows($wres);
     $i = 0;
@@ -193,7 +195,7 @@ function generate_content() {
         $tablecount++;
     }
 
-    $show = pagination(1, $arr);
+    $show = pagination($arr);
 
     foreach ($show as $key) {
         echo $key;
@@ -204,40 +206,19 @@ function generate_content() {
 //
 // Pagination
 //
-function pagination($page, $aContent) {
-    global $vw_perpage;
+function pagination($aContent) {
+    global $page, $pages, $vw_perpage;
 
-    $count = count($aContent);
-    $pages = ceil($count / $vw_perpage);
-
-    if (isset($_GET['page'])) {
-        if (($_GET['page'] > 0) && ($_GET['page'] < $pages+1)) {
-            $page = (int) $_GET['page'];
-        }
-        elseif ($_GET['page'] > $pages) {
-            header('Location: ?page=' . $pages);
-            exit;
-        }
-        else {
-            header('Location: ?page=1');
-            exit;
+    if ($pages > 1 && $page > 1) {
+        // Assign the previous page
+        $plink = '<a href="?page=' . ($page - 1) . '">&laquo; Prev</a>';
+        if ($page < $pages) {
+             $nlink = '<a href="?page=' . ($page + 1) . '">Next &raquo;</a>';
         }
     }
-
-    $start = ceil(($page - 1) * $vw_perpage);
-
-    $aShowContent = array_slice($aContent, $start, $vw_perpage);
-    if ($pages > 1) {
-        // Assign the previous page
-        if ($page != 1) {
-            $plink = '<a href="?page=' . ($page - 1) . '">&laquo; Prev</a>';
-            if ($page != $pages) {
-                $nlink = '<a href="?page=' . ($page + 1) . '">Next &raquo;</a>';
-            }
-        }
-        else {
-            $nlink = '<a href="?page=' . ($page + 1) . '">Next &raquo;</a>';
-        }
+    else {
+        $nlink = '<a href="?page=' . ($page + 1) . '">Next &raquo;</a>';
+    }
 
         // Assign all the page numbers and links to the string
         for ($l = 1; $l < $pages+1; $l++) {
@@ -249,12 +230,8 @@ function pagination($page, $aContent) {
             }
         }
 
-        $aShowContent[] = '<div id="pagination">' . $plink . $link . $nlink . '</div>';
-        return $aShowContent;
-    }
-    else {
-        echo "There is something wrong happened.";
-    }
+        $aContent[] = '<div id="pagination">' . $plink . $link . $nlink . '</div>';
+        return $aContent;
 }
 
 ?>
