@@ -39,25 +39,21 @@ if ($_GET['pass'] == $vw_password) {
         $tweet = array_map('trim', $tweet);
 
         foreach ($tweet as $word) {
-            $aMeaning = gdict_query($word);
+            $d = Cuery($word);
             $date = $key->created_at;
+            $date = strtotime(substr($date, 0, 25));
 
-            if ($aMeaning != FALSE) {
-                $date = strtotime(substr($date, 0, 25));
+            if ($date > $last_item_timestamp) {
+                $d = (Cuery($w));
+                $aWord = array();
 
-                if ($date > $last_item_timestamp) {
-                    $d = (Cuery($w));
-                    $aWord = array();
-
-                    if ($d['local'][0]['word'] != '') {
-                        $key = $d['local'][0]['word'];
-                        $pho = $d['local'][0]['pho'][0];
-                        $aDes = $d['local'][0]['des'];
-                        if ($d['local'][0]['des'] != '') $aDes = $d['local'][0]['des'];
-                        if ($d['local'][0]['sen'] != '') $aSen = $d['local'][0]['sen'];
-                        if ($d['local'][0]['mor'] != '') $aMor = $d['local'][0]['mor'];
-                        if ($d['local'][0]['ph'] != '') $aPh = $d['local'][0]['ph'];
-                    }
+                if ($d['local'][0]['word'] != '') {
+                    $key = $d['local'][0]['word'];
+                    $pho = $d['local'][0]['pho'][0];
+                    $aDes = $d['local'][0]['des'];
+                    if ($d['local'][0]['des'] != '') $aDes = $d['local'][0]['des'];
+                    if ($d['local'][0]['sen'] != '') $aSen = $d['local'][0]['sen'];
+                    if ($d['local'][0]['mor'] != '') $aMor = $d['local'][0]['mor'];
 
                     $json = file_get_contents("http://www.google.com/dictionary/json?callback=dict_api.callbacks.id100&q={$w}&sl=en&tl=zh&restrict=pr%2Cde&client=te");
                     $json = substr($json, strpos($json, "(")+1, -10);
@@ -97,15 +93,6 @@ if ($_GET['pass'] == $vw_password) {
                             $mom = $aMor[$i]['m'];
                             $morsql = "INSERT INTO vws_mor (wid, c, m) VALUES (" . $wid . ", '" . $moc . "', '" . $mom . "');";
                             mysql_query($morsql);
-                        }
-                    }
-
-                    if ($aPh) {
-                        for ($i = 0; $i < count($aPh); $i++) {
-                            $phs = $aPh[$i]['phs'];
-                            $phd = $aPh[$i]['phd'];
-                            $phsql = "INSERT INTO vws_ph (wid, phs, phd) VALUES (" . $wid . ", '" . $phs . "', '" . $phd . "');";
-                            mysql_query($phsql);
                         }
                     }
                 }

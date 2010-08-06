@@ -8,28 +8,33 @@ mysql_select_db('vws', $dba);
 mysql_select_db('z', $dbb);
 mysql_query("set names 'utf8';");
 
-$sql = "SELECT * FROM vws.vws_wordlist ORDER BY wl_date  ASC LIMIT 137, 100";
+$sql = "SELECT * FROM vws.vws_wordlist ORDER BY wl_date  ASC";
 $results = mysql_query($sql);
 
 while ($row = mysql_fetch_assoc($results)) {
 $w = $row['wl_key'];
+//$w = 'apple';
 $d = (Cuery($w));
 $aWord = array();
 
 if ($d['local'][0]['word'] != '') {
     $key = $d['local'][0]['word'];
-    $pho = $d['local'][0]['pho'][0];
+    $pho = str_replace("'", "ˈ", $d['local'][0]['pho'][0]);
     $aDes = $d['local'][0]['des'];
     if ($d['local'][0]['des'] != '') $aDes = $d['local'][0]['des'];
     if ($d['local'][0]['sen'] != '') $aSen = $d['local'][0]['sen'];
     if ($d['local'][0]['mor'] != '') $aMor = $d['local'][0]['mor'];
-    if ($d['local'][0]['ph'] != '') $aPh = $d['local'][0]['ph'];
-}
 
 $soundUrl = $row['sound'];
 $date = $row['wl_date'];
+//$json = file_get_contents("http://www.google.com/dictionary/json?callback=dict_api.callbacks.id100&q={$w}&sl=en&tl=zh&restrict=pr%2Cde&client=te");
+//$json = substr($json, strpos($json, "(")+1, -10);
+//$json = str_replace("\\", "\\\\", $json);
+//$decode = json_decode($json, true);
+//$soundUrl = urlencode($decode['primaries'][0]['terms'][2]['text']);
+//$date = time();
 
-$wsql = "INSERT INTO z.vws_words (`date`, `key`, `pho`, `sound`) VALUES (" . $date . ", '" . $key . "', '" . $pho . "', '" . $soundUrl . "');";
+echo $wsql = "INSERT INTO z.vws_words (`date`, `key`, `pho`, `sound`) VALUES (" . $date . ", '" . $key . "', '" . $pho . "', '" . $soundUrl . "');";
 mysql_query($wsql);
 $wid = mysql_insert_id();
 
@@ -62,14 +67,6 @@ if ($aMor) {
         mysql_query($morsql);
     }
 }
-
-if ($aPh) {
-    for ($i = 0; $i < count($aPh); $i++) {
-        $phs = $aPh[$i]['phs'];
-        $phd = $aPh[$i]['phd'];
-        $phsql = "INSERT INTO z.vws_ph (wid, phs, phd) VALUES (" . $wid . ", '" . $phs . "', '" . $phd . "');";
-        mysql_query($phsql);
-    }
 }
 }
 ?>
