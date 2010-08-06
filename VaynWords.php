@@ -59,7 +59,7 @@ if ($_GET['pass'] == $vw_password) {
                     $json = substr($json, strpos($json, "(")+1, -10);
                     $json = str_replace("\\", "\\\\", $json);
                     $decode = json_decode($json, true);
-                    $soundUrl = urlencode($decode['primaries'][0]['terms'][2]['text']);
+                    $soundUrl = $decode['primaries'][0]['terms'][2]['text'];
 
                     $wsql = "INSERT INTO vws_words (`date`, `key`, `pho`, `sound`) VALUES (" . $date . ", '" . $key . "', '" . $pho . "', '" . $soundUrl . "');";
                     mysql_query($wsql);

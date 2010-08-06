@@ -39,14 +39,14 @@ function Cuery($w) {
 // Google Dictionary 单词发音
 //
 function gsound($soundUrl) {
-    $ueUrl = urldecode($soundUrl);
+    $ueUrl = urlencode($soundUrl);
 
     $playcode =<<<EOF
 <object data="http://www.google.com/dictionary/flash/SpeakerApp16.swf" type="application/x-shockwave-flash" id="pronunciation" height="16" width=" 16">
 <param name="movie" value="http://www.google.com/dictionary/flash/SpeakerApp16.swf">
-<param name="flashvars" value="sound_name={$soundUrl}">
+<param name="flashvars" value="sound_name={$ueUrl}">
 <param name="wmode" value="transparent">
-<a href="{$ueUrl}"><img src="http://www.google.com/dictionary/flash/SpeakerOffA16.png" alt="发音" height="16" width="16" border="0"></a>
+<a href="{$soundUrl}"><img src="http://www.google.com/dictionary/flash/SpeakerOffA16.png" alt="发音" height="16" width="16" border="0"></a>
 </object>
 EOF;
     return $playcode;
