@@ -22,11 +22,11 @@ if ($_GET['pass'] == $vw_password) {
     mysql_select_db($dbdatabase, $db);
     mysql_query("set names 'utf8';");
 
-    $tsql = "SELECT wl_date FROM vws_wordlist ORDER BY wl_date DESC LIMIT 0, 1;";
+    $tsql = "SELECT date FROM vws_words ORDER BY date DESC LIMIT 0, 1;";
     $tresult = mysql_query($tsql);
 
     if ($row = mysql_fetch_assoc($tresult)) {
-        $last_item_timestamp = $row['wl_date'];
+        $last_item_timestamp = $row['date'];
     }
     else {
         $last_item_timestamp = 0;
@@ -44,9 +44,6 @@ if ($_GET['pass'] == $vw_password) {
             $date = strtotime(substr($date, 0, 25));
 
             if ($date > $last_item_timestamp) {
-                $d = (Cuery($w));
-                $aWord = array();
-
                 if ($d['local'][0]['word'] != '') {
                     $key = $d['local'][0]['word'];
                     $pho = str_replace("'", "ˈ", $d['local'][0]['pho'][0]);
