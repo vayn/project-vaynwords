@@ -28,89 +28,25 @@ function dict_query($value_1) {
 }
 
 //
-// 从 GDict 获得单词数据
+// 从 QQ 获得单词数据
 //
-function gdict_query($w) {
-    $json = file_get_contents("http://www.google.com/dictionary/json?callback=dict_api.callbacks.id100&q={$w}&sl=en&tl=zh&restrict=pr%2Cde&client=te");
-    $json = substr($json, strpos($json, "(")+1, -10);
-    $json = str_replace("\\", "\\\\", $json);
-    $decode = json_decode($json, true);
-
-    if (!$decode['primaries']) {
-        return FALSE;
-    }
-
-    $aDecode = $aPhonetic = $aMeaning = array();
-
-    $aDecode = $decode['primaries'][0];
-
-    $aPhonetic['key'] = $w;
-    $aPhonetic['label'] = $aDecode['terms'][1]['labels'][0]['text'];
-    $aPhonetic['text'] = $aDecode['terms'][1]['text'];
-    $aPhonetic['sound'] = $aDecode['terms'][2]['text'];
-
-    $nPartOfSpeechCount = count($aDecode['entries']);
-
-    for ($i = 0; $i < $nPartOfSpeechCount; $i++) {
-        $aMeaning['pos'][$i]['type'] = $aDecode['entries'][$i]['labels'][0]['text'];
-        if ($aMeaning['pos'][$i]['type'] == null ||
-           $aMeaning['pos'][$i]['type'] == "Derivative:" ||
-           $aMeaning['pos'][$i]['type'] == "Idiom:") {
-           $aMeaning['pos'][$i]['type'] = $aDecode['entries'][$i]['terms'][1]['labels'][0]['text'];
-           if ($aMeaning['pos'][$i]['type'] == 'DJ') {
-               $aMeaning['pos'][$i]['type'] = $aDecode['entries'][$i]['terms'][0]['labels'][0]['text'];
-           }
-        }
-        elseif ($aMeaning['pos'][$i]['type'] == 'Variant:') {
-            $aMeaning['pos'][$i]['type'] = $aDecode['entries'][1]['labels'][0]['text'];
-            if (count($aMeaning['pos'][$i]) == 1) {
-                unset($aMeaning['pos'][$i]);
-            }
-        }
-        elseif ($aMeaning['pos'][$i]['type'] == 'See also:') {
-            $aMeaning['pos'][$i]['type'] .= ' '
-                . $aDecode['entries'][$i]['terms'][0]['text'];
-        }
-
-          $nMeaningCount = count($aPMeaning = $aDecode['entries'][$i]['entries']);
-
-          for ($j = 0; $j < $nMeaningCount; $j++) {
-            $aMeaning['pos'][$i]['meaning'][$j]['def'][0] = $aPMeaning[$j]['terms'][0]['text'];
-            $aMeaning['pos'][$i]['meaning'][$j]['def'][1] = $aPMeaning[$j]['terms'][1]['text'];
-            if ($aMeaning['pos'][$i]['meaning'][$j]['def'][1] == null) {
-                $aMeaning['pos'][$i]['meaning'][$j]['def'][0] = $aDecode['entries'][$i]['terms'][0]['text'];
-                $aMeaning['pos'][$i]['meaning'][$j]['def'][1] = $aDecode['entries'][$i]['terms'][1]['text'];
-            }
-
-            $nPMExampleCount = count($aPMExample = $aPMeaning[$j]['entries'][0]['terms']);
-            if ($nPMExampleCount > 0) {
-                $aMeaning['pos'][$i]['meaning'][$j]['example'][0] = $aPMExample[0]['text'];
-                $aMeaning['pos'][$i]['meaning'][$j]['example'][1] = $aPMExample[1]['text'];
-            }
-
-            if ($aMeaning['pos'][$i]['meaning'][$j]['def'][1] == '') {
-                unset($aMeaning['pos'][$i]['meaning'][$j]);
-            }
-        }
-    }
-
-    $aMeaning = $aPhonetic + $aMeaning;
-    return $aMeaning;
+function Cuery($w) {
+    $json = file_get_contents("http://dict.qq.com/dict?q={$w}");
+    return $decode = json_decode($json, true);
 }
-
 
 //
 // Google Dictionary 单词发音
 //
 function gsound($soundUrl) {
-    $ueUrl = urlencode($soundUrl);
+    $ueUrl = urldecode($soundUrl);
 
     $playcode =<<<EOF
 <object data="http://www.google.com/dictionary/flash/SpeakerApp16.swf" type="application/x-shockwave-flash" id="pronunciation" height="16" width=" 16">
 <param name="movie" value="http://www.google.com/dictionary/flash/SpeakerApp16.swf">
-<param name="flashvars" value="sound_name={$ueUrl}">
+<param name="flashvars" value="sound_name={$soundUrl}">
 <param name="wmode" value="transparent">
-<a href="{$soundUrl}"><img src="http://www.google.com/dictionary/flash/SpeakerOffA16.png" alt="发音" height="16" width="16" border="0"></a>
+<a href="{$ueUrl}"><img src="http://www.google.com/dictionary/flash/SpeakerOffA16.png" alt="发音" height="16" width="16" border="0"></a>
 </object>
 EOF;
     return $playcode;

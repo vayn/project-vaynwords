@@ -46,37 +46,72 @@ if ($_GET['pass'] == $vw_password) {
                 $date = strtotime(substr($date, 0, 25));
 
                 if ($date > $last_item_timestamp) {
-                    $wsql = "INSERT INTO vws_wordlist (wl_key, wl_date, label, text, sound) VALUES ('"
-                        . $aMeaning['key'] . "', "
-                        . $date . ", '"
-                        . $aMeaning['label'] . "', '"
-                        . str_replace('/', '', $aMeaning['text']) . "', '"
-                        . $aMeaning['sound'] . "');";
+                    $d = (Cuery($w));
+                    $aWord = array();
+
+                    if ($d['local'][0]['word'] != '') {
+                        $key = $d['local'][0]['word'];
+                        $pho = $d['local'][0]['pho'][0];
+                        $aDes = $d['local'][0]['des'];
+                        if ($d['local'][0]['des'] != '') $aDes = $d['local'][0]['des'];
+                        if ($d['local'][0]['sen'] != '') $aSen = $d['local'][0]['sen'];
+                        if ($d['local'][0]['mor'] != '') $aMor = $d['local'][0]['mor'];
+                        if ($d['local'][0]['ph'] != '') $aPh = $d['local'][0]['ph'];
+                    }
+
+                    $json = file_get_contents("http://www.google.com/dictionary/json?callback=dict_api.callbacks.id100&q={$w}&sl=en&tl=zh&restrict=pr%2Cde&client=te");
+                    $json = substr($json, strpos($json, "(")+1, -10);
+                    $json = str_replace("\\", "\\\\", $json);
+                    $decode = json_decode($json, true);
+                    $soundUrl = urlencode($decode['primaries'][0]['terms'][2]['text']);
+                    $date = 1280855789;
+
+                    $wsql = "INSERT INTO vws_words (`date`, `key`, `pho`, `sound`) VALUES (" . $date . ", '" . $key . "', '" . $pho . "', '" . $soundUrl . "');";
                     mysql_query($wsql);
-                    $wid =mysql_insert_id();
-                    $count = count($aMeaning['pos']);
+                    $wid = mysql_insert_id();
 
-                    for ($nPos = 0; $nPos < $count; $nPos++) {
-                        $psql = "INSERT INTO vws_pos (wid, type) VALUES (" . $wid . ", '" . $aMeaning['pos'][$nPos]['type'] . "');";
-                        mysql_query($psql);
-                        $pid = mysql_insert_id();
+                    if ($aDes) {
+                        for ($i = 0; $i < count($aDes); $i++) {
+                            $dpos = $aDes[$i]['p'];
+                            $ddef = $aDes[$i]['d'];
+                            $dessql = "INSERT INTO vws_des (wid, pos, def) VALUES (" . $wid . ", '" . $dpos . "', '" . $ddef . "');";
+                            mysql_query($dessql);
+                        }
+                    }
 
-                        $mCount = count($aMean = $aMeaning['pos'][$nPos]['meaning']);
-                        for ($j = 0; $j < $mCount; $j++) {
-                            $msql = "INSERT INTO vws_def (pid, m_en, m_zh, eg_en, eg_zh) VALUES ("
-                                . $pid . ", '"
-                                . $aMean[$j]['def'][0] . "', '"
-                                . $aMean[$j]['def'][1] . "', '"
-                                . $aMean[$j]['example'][0] . "', '"
-                                . $aMean[$j]['example'][1] . "');";
-                            mysql_query($msql);
+                    if ($aSen) {
+                        for ($i = 0; $i < count($aSen); $i++) {
+                            $spos = $aSen[$i]['p'];
+                            for ($j = 0; $j < count($aSen[$i]['s']); $j++) {
+                                $sen_es = $aSen[$i]['s'][$j]['es'];
+                                $sen_cs = $aSen[$i]['s'][$j]['cs'];
+                                $sensql = "INSERT INTO vws_sen (wid, pos, sen_es, sen_cs) VALUES (" . $wid . ", '" . $spos . "', '" . $sen_es . "', '" . $sen_cs . "');";
+                                mysql_query($sensql);
+                            }
+                        }
+                    }
+
+                    if ($aMor) {
+                        for ($i = 0; $i < count($aMor); $i++) {
+                            $moc = $aMor[$i]['c'];
+                            $mom = $aMor[$i]['m'];
+                            $morsql = "INSERT INTO vws_mor (wid, c, m) VALUES (" . $wid . ", '" . $moc . "', '" . $mom . "');";
+                            mysql_query($morsql);
+                        }
+                    }
+
+                    if ($aPh) {
+                        for ($i = 0; $i < count($aPh); $i++) {
+                            $phs = $aPh[$i]['phs'];
+                            $phd = $aPh[$i]['phd'];
+                            $phsql = "INSERT INTO vws_ph (wid, phs, phd) VALUES (" . $wid . ", '" . $phs . "', '" . $phd . "');";
+                            mysql_query($phsql);
                         }
                     }
                 }
             }
         }
     }
-
     echo '--END--';
 }
 else {
