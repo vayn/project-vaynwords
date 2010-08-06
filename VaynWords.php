@@ -49,7 +49,7 @@ if ($_GET['pass'] == $vw_password) {
 
                 if ($d['local'][0]['word'] != '') {
                     $key = $d['local'][0]['word'];
-                    $pho = $d['local'][0]['pho'][0];
+                    $pho = str_replace("'", "ˈ", $d['local'][0]['pho'][0]);
                     $aDes = $d['local'][0]['des'];
                     if ($d['local'][0]['des'] != '') $aDes = $d['local'][0]['des'];
                     if ($d['local'][0]['sen'] != '') $aSen = $d['local'][0]['sen'];
@@ -60,7 +60,6 @@ if ($_GET['pass'] == $vw_password) {
                     $json = str_replace("\\", "\\\\", $json);
                     $decode = json_decode($json, true);
                     $soundUrl = urlencode($decode['primaries'][0]['terms'][2]['text']);
-                    $date = 1280855789;
 
                     $wsql = "INSERT INTO vws_words (`date`, `key`, `pho`, `sound`) VALUES (" . $date . ", '" . $key . "', '" . $pho . "', '" . $soundUrl . "');";
                     mysql_query($wsql);

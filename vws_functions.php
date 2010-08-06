@@ -65,29 +65,15 @@ function pullword() {
     $start = ($page==1) ? $start = 0 : $start = (($page - 1) * $vw_perpage) + 1;
 
     $words = array();
-    $wsql = "SELECT * FROM vws_wordlist ORDER BY wl_date DESC LIMIT {$start}, {$vw_perpage};";
+    $wsql = "SELECT * FROM vws_words ORDER BY wl_date DESC LIMIT {$start}, {$vw_perpage};";
     $wres = mysql_query($wsql);
     $wnum = mysql_num_rows($wres);
     $i = 0;
 
     if ($wnum) {
         while ($wrow = mysql_fetch_assoc($wres)) {
-            $words[$i] = array('id'=>$wrow['id'], 'key'=>$wrow['wl_key'], 'label'=>$wrow['label'], 'text'=>$wrow['text'], 'sound'=>$wrow['sound'],);
-            $psql = "SELECT id, type FROM vws_pos WHERE wid=" . $wrow['id'] . ";";
-            $pres = mysql_query($psql);
-            $j = 0;
-            while ($prow = mysql_fetch_assoc($pres)) {
-                $words[$i]['type'][$j]['pos'] = $prow['type'];
-                $dsql = "SELECT m_en, m_zh, eg_en, eg_zh FROM vws_def WHERE pid=" . $prow['id'] . ";";
-                $dres = mysql_query($dsql);
-                $k = 0;
-                while ($drow = mysql_fetch_assoc($dres)) {
-                    $words[$i]['type'][$j]['def'][$k] = array('m_en'=>$drow['m_en'], 'm_zh'=>$drow['m_zh'], 'eg_en'=>$drow['eg_en'], 'eg_zh'=>$drow['eg_zh']);
-                    $k++;
-                }
-                $j++;
-            }
-            $i++;
+            $words[$i] = array('id'=>$wrow['id'], 'date'=>$wrow['date'], 'key'=>$wrow['key'], 'pho'=>$wrow['pho'], 'sound'=>$wrow['sound']);
+
         }
     }
 
