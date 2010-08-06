@@ -65,7 +65,7 @@ function pullword() {
     $start = ($page==1) ? $start = 0 : $start = (($page - 1) * $vw_perpage) + 1;
 
     $words = array();
-    $wsql = "SELECT * FROM vws_words ORDER BY wl_date DESC LIMIT {$start}, {$vw_perpage};";
+    $wsql = "SELECT * FROM vws_words ORDER BY date DESC LIMIT {$start}, {$vw_perpage};";
     $wres = mysql_query($wsql);
     $wnum = mysql_num_rows($wres);
     $i = 0;
@@ -73,7 +73,25 @@ function pullword() {
     if ($wnum) {
         while ($wrow = mysql_fetch_assoc($wres)) {
             $words[$i] = array('id'=>$wrow['id'], 'date'=>$wrow['date'], 'key'=>$wrow['key'], 'pho'=>$wrow['pho'], 'sound'=>$wrow['sound']);
+            $dsql = "SELECT pos, def FROM vws_des WHERE wid=" . $words[$i]['id'] . ";";
+            $dres = mysql_query($dsql);
+            $j = $k = 0;
 
+            while ($drow = mysql_fetch_assoc($dres)) {
+                $words[$i]['def'][$j]['pos'] = $drow['pos'];
+                $words[$i]['def'][$j]['def'] = $drow['def'];
+                $j++;
+            }
+
+            $ssql = "SELECT pos, sen_es, sen_cs FROM vws_sen WHERE wid=" . $words[$i]['id'] . ";";
+            $sres = mysql_query($ssql);
+             while ($srow = mysql_fetch_assoc($sres)) {
+                $words[$i]['sen'][$k]['pos'] = $srow['pos'];
+                $words[$i]['sen'][$k]['sen_es'] = $srow['sen_es'];
+                $words[$i]['sen'][$k]['sen_cs'] = $srow['sen_cs'];
+                $k++;
+            }
+            $i++;
         }
     }
 
@@ -90,22 +108,23 @@ function generate_content() {
     foreach ($words as $word) {
         $id = $word['id'];
         $key = $word['key'];
-        $pron = $word['text'];
+        $pho = $word['text'];
         $mp3 = $word['sound'];
-        $def = $word['type'][0]['def'][0]['m_zh'];
-        $sent_o = $word['type'][0]['def'][0]['eg_en'];
-        $sent_t = $word['type'][0]['def'][0]['eg_zh'];
+        $def = $word['def'][0]['def'];
+        $pho = $word['pho'];
+        $sent_o = $word['sen'][0]['sen_es'];
+        $sent_t = $word['sen'][0]['sen_cs'];
 
         $arr[$tablecount] = '<table class="word_fleet" cellspacing="2">';
         $arr[$tablecount] .= '<tr>';
         $arr[$tablecount] .= '<td class="word_box_s">';
         $arr[$tablecount] .= $key . '<span id="' . $id . '"></span>';
         $arr[$tablecount] .= '</td>';
-        if ($pron == '') {
+        if ($pho == '') {
             $arr[$tablecount] .='<td class="word_box_s">' . gsound($mp3) . '</td>';
         }
         else {
-            $arr[$tablecount] .= '<td class="word_box_s">/' . $pron . '/ ' . gsound($mp3) . '</td>';
+            $arr[$tablecount] .= '<td class="word_box_s">/' . $pho . '/ ' . gsound($mp3) . '</td>';
         }
         $arr[$tablecount] .= '<td class="word_box_s">' . $def . '</td>';
         $arr[$tablecount] .= '</tr>';
@@ -127,7 +146,6 @@ function generate_content() {
     foreach ($show as $key) {
         echo $key;
     }
-
 }
 
 //

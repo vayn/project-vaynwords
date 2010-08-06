@@ -14,7 +14,7 @@ if ($db = mysql_connect($dbhost, $dbuser, $dbpassword)) {
     mysql_select_db($dbdatabase, $db);
     mysql_query("set names 'utf8';");
 
-    $sql = "SELECT count(id) AS id FROM vws_wordlist;";
+    $sql = "SELECT count(id) AS id FROM vws_words;";
     $res = mysql_query($sql);
     $row = mysql_fetch_assoc($res);
     $amount = $row['id'];
