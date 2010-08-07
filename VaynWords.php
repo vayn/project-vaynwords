@@ -47,7 +47,6 @@ if ($_GET['pass'] == $vw_password) {
                 if ($d['local'][0]['word'] != '') {
                     $key = $d['local'][0]['word'];
                     $pho = str_replace("'", "ˈ", $d['local'][0]['pho'][0]);
-                    $aDes = $d['local'][0]['des'];
                     if ($d['local'][0]['des'] != '') $aDes = $d['local'][0]['des'];
                     if ($d['local'][0]['sen'] != '') $aSen = $d['local'][0]['sen'];
                     if ($d['local'][0]['mor'] != '') $aMor = $d['local'][0]['mor'];
@@ -89,7 +88,6 @@ if ($_GET['pass'] == $vw_password) {
                                 $sen_es = $aSen[$i]['s'][$j]['es'];
                                 $sen_cs = $aSen[$i]['s'][$j]['cs'];
                                 $sensql = "INSERT INTO vws_sen (wid, pos, sen_es, sen_cs) VALUES (" . $wid . ", '" . $spos . "', '" . $sen_es . "', '" . $sen_cs . "');";
-                                "<br/>";
                                 mysql_query($sensql);
                                 unset($aSen);
                             }
