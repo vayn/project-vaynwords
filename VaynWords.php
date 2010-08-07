@@ -52,7 +52,7 @@ if ($_GET['pass'] == $vw_password) {
                     if ($d['local'][0]['sen'] != '') $aSen = $d['local'][0]['sen'];
                     if ($d['local'][0]['mor'] != '') $aMor = $d['local'][0]['mor'];
 
-                    $json = file_get_contents("http://www.google.com/dictionary/json?callback=dict_api.callbacks.id100&q={$w}&sl=en&tl=zh&restrict=pr%2Cde&client=te");
+                    $json = file_get_contents("http://www.google.com/dictionary/json?callback=dict_api.callbacks.id100&q={$key}&sl=en&tl=zh&restrict=pr%2Cde&client=te");
                     $json = substr($json, strpos($json, "(")+1, -10);
                     $json = str_replace("\\", "\\\\", $json);
                     $decode = json_decode($json, true);
