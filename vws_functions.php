@@ -120,11 +120,16 @@ function generate_content() {
         $arr[$tablecount] .= '<td class="word_box_s">';
         $arr[$tablecount] .= $key . '<span id="' . $id . '"></span>';
         $arr[$tablecount] .= '</td>';
-        if ($pho == '') {
+        if ($pho == '' && $mp3 != '') {
             $arr[$tablecount] .='<td class="word_box_s">' . gsound($mp3) . '</td>';
         }
-        else {
-            $arr[$tablecount] .= '<td class="word_box_s">/' . $pho . '/ ' . gsound($mp3) . '</td>';
+        elseif ($pho != '') {
+            if ($mp3 != '') {
+                $arr[$tablecount] .= '<td class="word_box_s">/' . $pho . '/ ' . gsound($mp3) . '</td>';
+            }
+            else {
+                $arr[$tablecount] .= '<td class="word_box_s">/' . $pho . '/ ' . '</td>';
+            }
         }
         $arr[$tablecount] .= '<td class="word_box_s">' . $def . '</td>';
         $arr[$tablecount] .= '</tr>';

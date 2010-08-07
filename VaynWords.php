@@ -56,7 +56,16 @@ if ($_GET['pass'] == $vw_password) {
                     $json = substr($json, strpos($json, "(")+1, -10);
                     $json = str_replace("\\", "\\\\", $json);
                     $decode = json_decode($json, true);
-                    $soundUrl = $decode['primaries'][0]['terms'][2]['text'];
+                    $i = 0;
+                    $soundUrl = null;
+                    while ($i < count($decode['primaries'][0]['terms'])) {
+                        $verify = strpos($decode['primaries'][0]['terms'][$i]['text'], "http");
+                        if ($verify === 0) {
+                            $soundUrl = $decode['primaries'][0]['terms'][$i]['text'];
+                            break;
+                        }
+                        $i++;
+                    }
 
                     $wsql = "INSERT INTO vws_words (`date`, `key`, `pho`, `sound`) VALUES (" . $date . ", '" . $key . "', '" . $pho . "', '" . $soundUrl . "');";
                     mysql_query($wsql);
@@ -67,7 +76,9 @@ if ($_GET['pass'] == $vw_password) {
                             $dpos = $aDes[$i]['p'];
                             $ddef = $aDes[$i]['d'];
                             $dessql = "INSERT INTO vws_des (wid, pos, def) VALUES (" . $wid . ", '" . $dpos . "', '" . $ddef . "');";
+                            "<br/>";
                             mysql_query($dessql);
+                            unset($aDes);
                         }
                     }
 
@@ -78,7 +89,9 @@ if ($_GET['pass'] == $vw_password) {
                                 $sen_es = $aSen[$i]['s'][$j]['es'];
                                 $sen_cs = $aSen[$i]['s'][$j]['cs'];
                                 $sensql = "INSERT INTO vws_sen (wid, pos, sen_es, sen_cs) VALUES (" . $wid . ", '" . $spos . "', '" . $sen_es . "', '" . $sen_cs . "');";
+                                "<br/>";
                                 mysql_query($sensql);
+                                unset($aSen);
                             }
                         }
                     }
@@ -88,7 +101,9 @@ if ($_GET['pass'] == $vw_password) {
                             $moc = $aMor[$i]['c'];
                             $mom = $aMor[$i]['m'];
                             $morsql = "INSERT INTO vws_mor (wid, c, m) VALUES (" . $wid . ", '" . $moc . "', '" . $mom . "');";
+                            "<br/>";
                             mysql_query($morsql);
+                            unset($aMor);
                         }
                     }
                 }

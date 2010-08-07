@@ -1,3 +1,6 @@
+v0.6.0 2010年 08月 07日 星期六 21:22:57 CST
+-从 XML 数据库转为 MySQL 数据库，并改用 QQ 词典 API 和 Unofficial Google Dictionary API（用来获得发音）
+
 v0.5.5 2010年 05月 15日 星期六 11:50:58 CST
 -加入一推多词功能。
 -实现方法：用 explode() 函数。
