@@ -37,11 +37,11 @@ if ($_GET['pass'] == $vw_password) {
         $tweet = substr($key->text, 0, strrpos($key->text, '#'));
         $tweet = explode(',', $tweet);
         $tweet = array_map('trim', $tweet);
+        $date = $key->created_at;
+        $date = strtotime(substr($date, 0, 25));
 
         foreach ($tweet as $word) {
             $d = Cuery($word);
-            $date = $key->created_at;
-            $date = strtotime(substr($date, 0, 25));
 
             if ($date > $last_item_timestamp) {
                 if ($d['local'][0]['word'] != '') {
