@@ -65,7 +65,7 @@ function pullword() {
     $start = ($page==1) ? $start = 0 : $start = (($page - 1) * $vw_perpage) + 1;
 
     $words = array();
-    $wsql = "SELECT * FROM vws_words ORDER BY date DESC LIMIT {$start}, {$vw_perpage};";
+    $wsql = "SELECT * FROM vws_words ORDER BY `date` DESC LIMIT {$start}, {$vw_perpage};";
     $wres = mysql_query($wsql);
     $wnum = mysql_num_rows($wres);
     $i = 0;
