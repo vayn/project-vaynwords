@@ -137,7 +137,7 @@ function generate_content() {
         if ($sent_o != '' || $sent_t != '') {
             $arr[$tablecount] .= '<tr><td class="word_box_l" colspan=3>' . $sent_o . '</td></tr>';
             $arr[$tablecount] .= '<tr><td class="word_box_l" colspan=3>' . $sent_t;
-            if (($i%5 == 0) && ($i != 0)) {
+            if (($tablecount%7 == 0) && ($tablecount != 0)) {
                 $arr[$tablecount] .= '<a href="#top" title="Back to top"><div class="back">&uarr;<div></a>';
             }
             $arr[$tablecount] .= '</td></tr>';
