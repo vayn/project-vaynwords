@@ -1,3 +1,6 @@
+v0.6.1 2010年 08月 09日 星期一 10:36:01 CST
+-优化程序
+
 v0.6.0 2010年 08月 07日 星期六 21:22:57 CST
 -从 XML 数据库转为 MySQL 数据库，并改用 QQ 词典 API 和 Unofficial Google Dictionary API（用来获得发音）
 
