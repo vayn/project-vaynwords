@@ -159,19 +159,26 @@ function generate_content() {
 function pagination($aContent) {
     global $page, $pages, $vw_perpage;
 
-    if ($pages > 1 && $page > 1) {
-        // Assign the previous page
-        $plink = '<a href="?page=' . ($page - 1) . '">&laquo; Prev</a>';
-        if ($page < $pages) {
-             $nlink = '<a href="?page=' . ($page + 1) . '">Next &raquo;</a>';
+    if ($pages > 1) {
+        // Assign the "previous" and "next" button
+        if ($page > 1) {
+            $plink = '<a href="?page=' . ($page - 1) . '">&laquo; Prev</a>';
+        }
+        if($page > 2) {
+            $plink = '<a href="?page=1">&lt;</a> <a href="?page=' . ($page - 1) . '">&laquo; Prev</a>';
+        }
+
+        if ($page < ($pages-1)) {
+                $nlink = '<a href="?page=' . ($page + 1) . '">Next &raquo;</a> <a href="?page=' . $pages . '">&gt;</a>';
+        }
+        elseif ($page < $pages) {
+            $nlink = '<a href="?page=' . ($page + 1) . '">Next &raquo;</a>';
         }
     }
-    else {
-        $nlink = '<a href="?page=' . ($page + 1) . '">Next &raquo;</a>';
-    }
 
-        // Assign all the page numbers and links to the string
-        for ($l = 1; $l < $pages+1; $l++) {
+    // Assign all the page numbers and links to the string
+    if ($page < 11) {
+        for ($l = 1; $l < 11; $l++) {
             if ($page == $l) {
                 $link .= ' <span class="current">' . $l . '</span> '; // If we are on the current page
             }
@@ -179,9 +186,21 @@ function pagination($aContent) {
                 $link .= ' <a href="?page=' . $l . '" class="page">' . $l . '</a> ';
             }
         }
+    }
+    else {
+        for ($l = $page-4; $l < $page+5; $l++) {
+            if ($page == $l) {
+                $link .= ' <span class="current">' . $l . '</span> ';
+            }
+            elseif ($l < ($pages+1)) {
+                $link .= ' <a href="?page=' . $l . '" class="page">' . $l . '</a> ';
+            }
+            else break;
+        }
+    }
 
-        $aContent[] = '<div id="pagination">' . $plink . $link . $nlink . '</div>';
-        return $aContent;
+    $aContent[] = '<div id="pagination">' . $plink . $link . $nlink . '</div>';
+    return $aContent;
 }
 
 ?>
