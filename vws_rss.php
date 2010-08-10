@@ -22,10 +22,10 @@ $rsshead =<<<XSL
       >
   <channel>
   <title>$vw_sitename - Project VaynWords</title>
-  <atom:link href="$site/rss.xml" rel="self" type="application/rss+xml" />
+  <atom:link href="$site/feed" rel="self" type="application/rss+xml" />
   <link>http://lab.jixia.org/project_vws/</link>
   <description>Project VaynWords - Study English with Twitter and RSS</description>
-  <lastBuildDate><xsl:value-of select="words/word/date" /></lastBuildDate>
+  <lastBuildDate>$date</lastBuildDate>
   <generator>http://elnode.com/</generator>
   <language>en</language>
 XSL;

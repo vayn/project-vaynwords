@@ -1,7 +1,7 @@
 RewriteEngine On
 
-RewriteBase /jxlab/vws_mine/
+RewriteBase /project-vaynwords/
 RewriteRule feed/ vws_rss.php
 RewriteRule feed feed/ [R]
 
-ErrorDocument 404 /jxlab/vws_mine/404.php
+ErrorDocument 404 /project-vaynwords/404.php
