@@ -58,11 +58,14 @@ EOF;
 function pullword() {
     global $vw_perpage, $page, $dbhost, $dbuser, $dbpassword, $dbdatabase;
 
+    $vw_perpage = $vw_perpage ? $vw_perpage : 25;
+    $page = $page ? $page : 1;
+
     $db = mysql_connect($dbhost, $dbuser, $dbpassword);
     mysql_select_db($dbdatabase, $db);
     mysql_query("set names 'utf8';");
 
-    $start = ($page==1) ? $start = 0 : $start = (($page - 1) * $vw_perpage) + 1;
+    $start = ($page==1) ? 0 : (($page - 1) * $vw_perpage) + 1;
 
     $words = array();
     $wsql = "SELECT * FROM vws_words ORDER BY `date` DESC LIMIT {$start}, {$vw_perpage};";
