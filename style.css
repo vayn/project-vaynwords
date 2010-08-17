@@ -1,176 +1,271 @@
-@charset "utf-8";
+/* ---------- GLOBAL STYLING & RESET ---------- */
 
-/*
- *   Project Vaynwords CSS
- *
- *   Author: Jixia Lab <vt@elnode.com>
- *   Site: http://lab.jixia.org/
- *
- *   ver0.5.4
- *
- *   05/13/2010
- *
- */
-
-body {
-  background: #deeaf6 url("img/background.png") no-repeat 40px bottom; /*#e4f2fd*/
-  color: #333;
-  font-family: XHei, 'Dejavu Sans', Verdana, sans-serif;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  text-align: center;
-  text-shadow: 1px 3px 5px #d3d3d3;
+* {
+    margin: 0px;
+    padding: 0px;
 }
 
-h1 {
-  line-height: 100%;
-  padding-top: 11px;
-  text-shadow: 1px 1px 3px #eee;
+body {
+    margin: 12px 0px 12px 0px;
+    font: normal 10px/150% "Lucida Grande", "Lucida Sans Unicode", Verdana, "Jamrul", sans-serif;
+    color: #525760;
+    background: #b1d4e5;
+}
+
+#wrapper {
+    margin: 0px auto;
+    padding-bottom: 10px;
+    background: url("./img/bg_site.png") no-repeat bottom center;
+}
+
+#shell {
+    margin: 0px auto;
+    background: #b1d4e5 url("./img/bg_site.png") repeat-y top center;
+}
+
+ol, ul {
+    list-style-type: none;
+}
+
+hr {
+    display: none;
+}
+
+abbr {
+    border: none;
 }
 
 img {
-  border: 0;
+    border: none;
+    -ms-interpolation-mode: bicubic;
 }
 
-a:link, a:visited, a:active {
-  color: #1c7fdb;
-  text-decoration: none;
+a {
+    color: #00b0d8;
+    text-decoration: none;
+    outline: none;
 }
 
 a:hover {
-  color: #1785eb;
-  text-decoration: none;
+    color: #222222;
 }
 
-#whale_error {
-  margin-bottom: 10px;
-}
-
-#whale_error img {
-  -webkit-box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.3);
-}
-
+/* ---------- HEADER STYLES ---------- */
 #header {
-  color: #666;
+    margin: 0px auto;
+    width: 680px;
+    height: 124px;
+    position: relative;
+    z-index: 1;
 }
 
-#main {
-  margin: 0 auto 0 auto;
-  padding: 0 20px 20px 20px;
-  width: 700px;
-  line-height: 150%;
+    /* ---------- NAV ---------- */
+    #nav {
+        clear: both;
+        padding: 0px 20px 0px 280px;
+        width: 590px;
+        height: 57px;
+        position: absolute;
+        bottom: -3px;
+    }
+
+        /* ---------- Nav Logo ---------- */
+        #nav h1 {
+            position: absolute;
+            top: -41px;
+            left: 30px;
+            text-shadow: 0px 1px 1px #fff;
+        }
+
+        /* ---------- Nav Tabs ---------- */
+        #navigation li {
+            margin: 0px 15px 0px 0px;
+            float: left;
+            position: relative;
+            border-top: 3px solid transparent;
+            border-bottom: none;
+            -moz-border-radius-topleft: 5px;
+            -webkit-border-top-left-radius: 5px;
+            border-top-left-radius: 5px;
+            -moz-border-radius-topright: 5px;
+            -webkit-border-top-right-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        /* ---------- Link Tabs ---------- */
+        #navigation li span a {
+            display: block;
+            margin-bottom: -4px;
+            padding: 15px 20px 15px 20px;
+            height: 20px;
+            font-size: 16px;
+            line-height: 20px;
+            white-space: nowrap;
+            color: #313d42;
+            background-color: #e3e5e7;
+            border: 1px solid #e3e5e7;
+            border-bottom: 3px solid #dbdce0;
+            text-shadow: 0px -1px 1px #eee;
+            -moz-border-radius-topleft: 5px;
+            -webkit-border-top-left-radius: 5px;
+            border-top-left-radius: 5px;
+            -moz-border-radius-topright: 5px;
+            -webkit-border-top-right-radius: 5px;
+            border-top-right-radius: 5px;
+        }
+
+        #navigation li span a:hover {
+            background-color: #dbdce0;
+            border: 1px solid #dbdce0;
+            border-bottom: 3px solid #dbdce0;
+        }
+
+/* ---------- CONTENT STYLE ---------- */
+#content {
+    margin: 0px auto;
+    width: 682px;
+    padding: 3px;
+    background: #e8eaed;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    clear: both;
+    position: relative;
+    z-index: 0;
 }
 
-.word_fleet {
-  background: #fff;
-  border: 1px solid #eee;
-  margin-bottom: 18px;
-  padding: 1px 2px;
-  width: 700px;
-  font-family: "Segoe UI", Verdana, "Lucida Sans Regular", "Lucida Sans Unicode", Arial, sans-serif;
-  text-align: left;
-  -webkit-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
-  -moz-box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
-  box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
+#content .container {
+    background: #fff;
+    border: 1px solid #caccd2;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    zoom: 1;
 }
 
-.word_box_s {
- padding: 5px 10px; 
+#content .container:after {
+    display: block;
+    visibility: hidden;
+    clear: both;
+    height: 0;
+    line-height: 0;
+    content: ".";
 }
 
-.word_box_l {
-  border-top: 2px solid #eee;
-  padding: 5px 10px;
+div#dotcom {
+    padding: 0 0 30px 0;
 }
 
-.word_fleet .back {
-  margin: 0;
-  padding: 5px 0 0 0;
-  font-size: 4px;
-  font-size: 12px !important;
-  color: #666;
-  float: right;
-  clear: both;
-}
+    div#word {
+        text-align: left;
+        margin: 0 auto 10px;
+        padding: 10px 20px 25px 20px;
+        border-bottom: 1px solid #e3e5e7;
+        font-size: 14px;
+        line-height: 30px;
+    }
 
+/* ---------- FOOTER STYLE ---------- */
 #footer {
-  margin-top: -17px;
-  padding-bottom: 11px;
-  font-size: 11px;
+    margin: 0px auto;
+    padding: 20px 30px 10px 30px;
+    width: 620px;
+    clear: both;
+    position: relative;
 }
 
-/* Pagination */
+#footer .b2t, #footer .g2b {
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+#footer .b2t,#footer .g2b{
+    background-image: url(img/b2t.png);
+    z-index: 2;
+    position: fixed;
+    bottom: 20%;
+    left: 10px;
+    cursor: pointer;
+    width: 38px;
+    height: 68px
+}
+
+#footer div.g2b{
+    background-image: url(img/g2b.png);
+    top: 80% !important;
+    bottom: auto
+}
+
+#footer p {
+    margin: 0px;
+    padding: 0px;
+    font-size: 11px;
+    line-height: 20px;
+    vertical-align: middle;
+    color: #b5b9c0;
+}
+
+    #footer p#lab {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+    }
+
+        #footer p#lab a strong {
+            margin: 2px -5px 0px 0px;
+            display: block;
+            width: 28px;
+            height: 18px;
+            text-indent: 9999px;
+            vertical-align: top;
+            overflow: hidden;
+            background: url("./img/logo_lab.png") no-repeat top left;
+            float: left;
+        }
+
+/* ---------- PAGINATION STYLE ---------- */
 #pagination {
-  float: left;
-  margin: 12px 0 40px;
-  padding-left: 10px;
-  font-family: Monaco, "Courier New", Fixedsys, Courier, monospace;
-  font-size: 12px;
+    float: left;
+    margin: 12px 0 20px;
+    padding-left: 10px;
+    font-size: 12px;
 }
 
 #pagination a {
-  color: #333;
-  background: #f3f3ec;
-  border-bottom: 1px solid #bbb;
-  border-right: 1px solid #ddd;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-  text-decoration: none;
-  padding: 5px 11px;
-  text-shadow: 0 1px 0 #fff;
+    color: #333;
+    background: #f3f3ec;
+    border-bottom: 1px solid #bbb;
+    border-right: 1px solid #ddd;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    text-decoration: none;
+    padding: 5px 11px;
+    text-shadow: 0 1px 0 #fff;
 }
 
 #pagination a:active {
-  background: #ccc;
+    background: #ccc;
 }
 
 #pagination a:hover {
-  border: none;
-  border-top: 1px solid #bbb;
-  border-left: 1px solid #ddd;
-  text-decoration: none;
-  text-shadow: 0 -1px 0 #fff;
+    border: none;
+    border-top: 1px solid #bbb;
+    border-left: 1px solid #ddd;
+    text-decoration: none;
+    text-shadow: 0 -1px 0 #fff;
 }
 
 #pagination span.current {
-  border: none;
-  border-top: 1px solid #bbb;
-  border-left: 1px solid #ddd;
-  -moz-border-radius: 4px;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-  background: #1785eb;
-  padding: 5px 11px;
-  font-weight: bold;
-  color: #fff;
-  text-shadow: 0 1px 0 #666;
+    border: none;
+    border-top: 1px solid #bbb;
+    border-left: 1px solid #ddd;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    background: #1785eb;
+    padding: 5px 11px;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 1px 0 #666;
 }
-
-/* clearfix */
-.clearfix:after {
-  display: block;
-  clear: both;
-  content: "";
-  visibility: hidden;
-  height: 0;
-}
-
-.clearfix {
-  display: inline-block;
-}
-
-html[xmlns] .clearfix {
-  display: block;
-}
-
-* html .clearfix {
-  height: 1%;
-}
- 

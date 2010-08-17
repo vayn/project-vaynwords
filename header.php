@@ -8,32 +8,36 @@
  *    Create Date:      2010年04月30日 星期五 05时58分42秒
  */
 ?>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="generator" content="http://lab.jixia.org/" />
-  <meta http-equiv="cache-control" content="no-cache" />
-  <title><?php echo $vw_sitename; ?> - Project Vaynwords</title>
-<?php
-  if (file_exists('vws_data.xml') && (basename($_SERVER['SCRIPT_NAME']) == 'index.php')) {
-    echo '  <link rel="stylesheet" type="text/css" media="screen" href="style.css" />' . "\n";
-  }
-  else {
-    echo '  <link rel="stylesheet" type="text/css" media="screen" href="img/err.css" />' . "\n";
-  }
-?>
-  <link rel="shortcut icon" href="favicon.ico" />
-  <link rel="alternate" type="application/rss+xml" href="feed/" />
-  <script type="text/javascript" src="js/scroll.js"></script>
+        <title><?php echo $vw_sitename ?> - Project VaynWords</title>
+
+        <meta charset="UTF-8" />
+        <meta http-equiv="imagetoolbar" content="no" />
+        <meta name="description" content="Project Vaynwords. Help you remember words." />
+        <meta name="author" content="Vayn" />
+        <meta name="revisit-after" content="2 days" />
+        <meta http-equiv="content-script-type" content="text/javascript" />
+
+        <link rel="shortcut icon" href="favicon.ico" />
+        <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 <body>
 <a name="top"></a>
-<?php
-if (file_exists('vws_data.xml') && (basename($_SERVER['SCRIPT_NAME']) == 'index.php')) {
-?>
-<div id="header"><h1><?php echo $vw_sitename; ?> <a href="http://twitter.com/<?php echo $vw_username; ?>" title="Follow me on twitter"><img src="img/twitter_bird.png" alt="<?php $vw_username; ?>" style="vertical-align:text-bottom" /></a></h1></div>
-<div id="main" class="clearfix">
-<?php
-}
-?>
-
+    <div id="wrapper">
+        <div id="shell">
+            <div id="header">
+                <div id="nav">
+                    <h1><?php echo $vw_sitename ?></h1>
+                    <ul id="navigation">
+                        <li><span><a href="http://lab.jixia.org">JiXia Lab</a></span></li>
+                        <li><span><a href="http://www.github.com/vayn/project-vaynwords">Download</a></span></li>
+                        <li><span><a href="http://twiter.com/vayn">Twitter</a></span></li>
+                    </ul>
+                </div>
+            </div>
+            <hr />
+            <div id="content">
+                <div class="container">
+                    <div id="dotcom">

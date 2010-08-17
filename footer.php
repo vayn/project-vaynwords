@@ -12,12 +12,25 @@
  */
  require('VERSION');
 ?>
-</div>
-<div id="footer">
-  Project Vaynwords v<?php echo VERSION ?> <a href="http://lab.jixia.org" title="Jixia Lab">稷下出品</a><br /><br />
-  Powered by <a href="http://www.php.net/">PHP</a>, <a href="http://www.twitter.com/">Twitter</a>,
-  <a href="http://dict.qq.com/">QQ Dict</a>, <a href="http://www.google.com">Google</a>
-  &amp; <a href="http://ryanfaerman.com/twittersearch/">TwitterSearch</a>
-</div>
+                    </div>
+                </div>
+            </div>
+            <div id="footer">
+                <div class="b2t"></div>
+                <div class="g2b"></div>
+                <p>
+                    Powered by
+                    <a href="http://www.php.net/">PHP</a>,
+                    <a href="http://www.twitter.com/">Twitter</a>,
+                    <a href="http://dict.qq.com/">QQ Dict</a>,
+                    <a href="http://www.google.com">Google</a>
+                    &amp; <a href="http://ryanfaerman.com/twittersearch/">TwitterSearch</a>
+                </p>
+                <p id="lab"><a href="http://lab.jixia.org" target="_blank"><strong>Jixia Lab</strong> Production</a></p>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript" src="./js/wp-javascription.js"></script>
 </body>
 </html>

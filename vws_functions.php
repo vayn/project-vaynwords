@@ -114,38 +114,31 @@ function generate_content() {
         $pho = $word['text'];
         $mp3 = $word['sound'];
         $def = $word['def'][0]['def'];
+        $def_pos = $word['def'][0]['pos'];
         $pho = $word['pho'];
         $sent_o = $word['sen'][0]['sen_es'];
         $sent_t = $word['sen'][0]['sen_cs'];
 
-        $arr[$tablecount] = '<table class="word_fleet" cellspacing="2">';
-        $arr[$tablecount] .= '<tr>';
-        $arr[$tablecount] .= '<td class="word_box_s">';
         $arr[$tablecount] .= $key . '<span id="' . $id . '"></span>';
-        $arr[$tablecount] .= '</td>';
+        $arr[$tablecount] = '<div id="word">' . $key . ' ';
         if ($pho == '' && $mp3 != '') {
-            $arr[$tablecount] .='<td class="word_box_s">' . gsound($mp3) . '</td>';
+            $arr[$tablecount] .= gsound($mp3) . '<br />';
         }
         elseif ($pho != '') {
             if ($mp3 != '') {
-                $arr[$tablecount] .= '<td class="word_box_s">/' . $pho . '/ ' . gsound($mp3) . '</td>';
+                $arr[$tablecount] .= '/' . $pho . '/ ' . gsound($mp3) . '<br />';
             }
             else {
-                $arr[$tablecount] .= '<td class="word_box_s">/' . $pho . '/ ' . '</td>';
+                $arr[$tablecount] .= '/' . $pho . '/ ' . '<br />';
             }
         }
-        $arr[$tablecount] .= '<td class="word_box_s">' . $def . '</td>';
-        $arr[$tablecount] .= '</tr>';
+        $arr[$tablecount] .= $def_pos . ' ' . $def . '<br />';
 
         if ($sent_o != '' || $sent_t != '') {
-            $arr[$tablecount] .= '<tr><td class="word_box_l" colspan=3>' . $sent_o . '</td></tr>';
-            $arr[$tablecount] .= '<tr><td class="word_box_l" colspan=3>' . $sent_t;
-            if (($tablecount%7 == 0) && ($tablecount != 0)) {
-                $arr[$tablecount] .= '<a href="#top" title="Back to top"><div class="back">&uarr;<div></a>';
-            }
-            $arr[$tablecount] .= '</td></tr>';
+            $arr[$tablecount] .= $sent_o . '<br />';
+            $arr[$tablecount] .= $sent_t;
         }
-        $arr[$tablecount] .= '</table>';
+        $arr[$tablecount] .= '</div>';
         $tablecount++;
     }
 
