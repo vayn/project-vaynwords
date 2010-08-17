@@ -166,11 +166,11 @@ a:hover {
     content: ".";
 }
 
-div#dotcom {
+#dotcom {
     padding: 0 0 30px 0;
 }
 
-    div#word {
+    .word {
         text-align: left;
         margin: 0 auto 10px;
         padding: 10px 20px 25px 20px;
@@ -204,7 +204,7 @@ div#dotcom {
     height: 68px
 }
 
-#footer div.g2b{
+#footer .g2b{
     background-image: url(img/g2b.png);
     top: 80% !important;
     bottom: auto
