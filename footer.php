@@ -26,7 +26,7 @@
                     <a href="http://www.google.com">Google</a>
                     &amp; <a href="http://ryanfaerman.com/twittersearch/">TwitterSearch</a>
                 </p>
-                <p id="lab"><a href="http://lab.jixia.org" target="_blank"><strong>Jixia Lab</strong> Production</a></p>
+                <p id="lab"><a href="http://lab.jixia.org" target="_blank"><strong>Jixia Lab</strong> Project VaynWords 0.6.2</a></p>
             </div>
         </div>
     </div>
