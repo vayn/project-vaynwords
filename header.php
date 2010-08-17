@@ -24,7 +24,6 @@
         <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
 <body>
-<a name="top"></a>
     <div id="wrapper">
         <div id="shell">
             <div id="header">
