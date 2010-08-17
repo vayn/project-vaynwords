@@ -119,8 +119,7 @@ function generate_content() {
         $sent_o = $word['sen'][0]['sen_es'];
         $sent_t = $word['sen'][0]['sen_cs'];
 
-        $arr[$tablecount] .= $key . '<span id="' . $id . '"></span>';
-        $arr[$tablecount] = '<div id="word">' . $key . ' ';
+        $arr[$tablecount] = '<div id="word"><span id="' . $id . '"></span>' . $key . ' ';
         if ($pho == '' && $mp3 != '') {
             $arr[$tablecount] .= gsound($mp3) . '<br />';
         }

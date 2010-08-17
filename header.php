@@ -22,6 +22,7 @@
 
         <link rel="shortcut icon" href="favicon.ico" />
         <link rel="stylesheet" href="style.css" type="text/css" />
+        <link rel="alternate" type="application/rss+xml" title="Project VaynWords RSS 2.0" href="./feed" />
 </head>
 <body>
     <div id="wrapper">
