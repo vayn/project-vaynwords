@@ -16,7 +16,7 @@
         <meta charset="UTF-8" />
         <meta http-equiv="imagetoolbar" content="no" />
         <meta name="description" content="Project Vaynwords. Help you remember words." />
-        <meta name="author" content="Vayn" />
+        <meta name="generator" content="http://lab.jixia.org" />
         <meta name="revisit-after" content="2 days" />
         <meta http-equiv="content-script-type" content="text/javascript" />
 
