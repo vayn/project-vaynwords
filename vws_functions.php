@@ -78,7 +78,7 @@ function pullword() {
             $words[$i] = array('id'=>$wrow['id'], 'date'=>$wrow['date'], 'key'=>$wrow['key'], 'pho'=>$wrow['pho'], 'sound'=>$wrow['sound']);
             $dsql = "SELECT pos, def FROM vws_des WHERE wid=" . $words[$i]['id'] . ";";
             $dres = mysql_query($dsql);
-            $j = $k = 0;
+            $j = $k = $l = 0;
 
             while ($drow = mysql_fetch_assoc($dres)) {
                 $words[$i]['def'][$j]['pos'] = $drow['pos'];
@@ -94,10 +94,17 @@ function pullword() {
                 $words[$i]['sen'][$k]['sen_cs'] = $srow['sen_cs'];
                 $k++;
             }
+
+            $msql = "SELECT c, m FROM vws_mor WHERE wid=" . $words[$i]['id'] . ";";
+            $mres = mysql_query($msql);
+             while ($mrow = mysql_fetch_assoc($mres)) {
+                $words[$i]['mor'][$l]['c'] = $mrow['c'];
+                $words[$i]['mor'][$l]['m'] = $mrow['m'];
+                $l++;
+             }
             $i++;
         }
     }
-
     return $words;
 }
 
@@ -143,8 +150,15 @@ function generate_content() {
              if ($senO != '' || $senT != '') {
                  if ($sen_pos != '') $sen_pos = ' [' . $sen_pos . ']';
                 $arr[$tablecount] .= $senO . $sen_pos . '<br />';
-                $arr[$tablecount] .= $senT;
+                 $arr[$tablecount] .= $senT . '<br />';
             }
+        }
+
+        $c = $word['mor'][0]['c'];
+        $m = $word['mor'][0]['m'];
+        if ($c != '' || $m != '') {
+           $arr[$tablecount] .= '[ ' . $c . ': ';
+           $arr[$tablecount] .= $m . ' ]';
         }
 
         $arr[$tablecount] .= '</div>';
