@@ -38,27 +38,40 @@ foreach ($words as $word) {
     $id = $word['id'];
     $key = $word['key'];
     $date = date(DATE_RSS, $word['date']);
-    $pho = $word['text'];
     $mp3 = $word['sound'];
-    $def = $word['def'][0]['def'];
-    $pho = $word['pho'];
-    $sent_o = $word['sen'][0]['sen_es'];
-    $sent_t = $word['sen'][0]['sen_cs'];
+    if ($word['pho'] != '') $pho = "/{$word['pho']}/";
 
-    $rssbody =<<<XSL
+    $rssbody = "
 <item>
-<title>$key</title>
-<link>$site/index.php#$id</link>
+<title>{$key}</title>
+<link>{$site}/index.php#{$id}</link>
 <description>
-    <p>$key $pho</p>
-    <p>$def</p>
-    <p>$sent_o</p>
-    <p>$sent_t</p>
+<p>{$key} {$pho}</p>";
+
+    $defCount = count($word['def']);
+    for ($i = 0; $i < $defCount; ++$i) {
+        $def = $word['def'][$i]['def'];
+        $def_pos = $word['def'][$i]['pos'];
+        $rssbody .= "<p>$def_pos $def</p>";
+    }
+
+    $senCount = count($word['sen']);
+    for ($i = 0; $i < $senCount; ++$i) {
+        $senO = $word['sen'][$i]['sen_es'];
+        $senT = $word['sen'][$i]['sen_cs'];
+        $sen_pos = $word['sen'][$i]['pos'];
+         if ($senO != '' || $senT != '') {
+             if ($sen_pos != '') $sen_pos = ' [' . $sen_pos . ']';
+             $rssbody .= '<p>' . $senO . $sen_pos . '</p>';
+             $rssbody .= '<p>' . $senT . '</p>';
+        }
+    }
+
+    $rssbody .= "
 </description>
 <pubDate>$date</pubDate>
 <guid>$site/index.php#$id</guid>
-</item>
-XSL;
+</item>";
     echo $rssbody;
 }
 
