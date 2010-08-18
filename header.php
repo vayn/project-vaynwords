@@ -20,6 +20,7 @@
         <meta name="revisit-after" content="2 days" />
         <meta http-equiv="content-script-type" content="text/javascript" />
 
+        <link href='http://fonts.googleapis.com/css?family=IM+Fell+English+SC' rel='stylesheet' type='text/css'>
         <link rel="shortcut icon" href="favicon.ico" />
         <link rel="stylesheet" href="style.css" type="text/css" />
         <link rel="alternate" type="application/rss+xml" title="Project VaynWords RSS 2.0" href="./feed" />

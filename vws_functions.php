@@ -113,11 +113,7 @@ function generate_content() {
         $key = $word['key'];
         $pho = $word['text'];
         $mp3 = $word['sound'];
-        $def = $word['def'][0]['def'];
-        $def_pos = $word['def'][0]['pos'];
         $pho = $word['pho'];
-        $sent_o = $word['sen'][0]['sen_es'];
-        $sent_t = $word['sen'][0]['sen_cs'];
 
         $arr[$tablecount] = '<div class="word"><span id="' . $id . '"></span>' . $key . ' ';
         if ($pho == '' && $mp3 != '') {
@@ -131,27 +127,40 @@ function generate_content() {
                 $arr[$tablecount] .= '/' . $pho . '/ ' . '<br />';
             }
         }
-        $arr[$tablecount] .= $def_pos . ' ' . $def . '<br />';
 
-        if ($sent_o != '' || $sent_t != '') {
-            $arr[$tablecount] .= $sent_o . '<br />';
-            $arr[$tablecount] .= $sent_t;
+        $defCount = count($word['def']);
+        for ($i = 0; $i < $defCount; ++$i) {
+            $def = $word['def'][$i]['def'];
+            $def_pos = $word['def'][$i]['pos'];
+            $arr[$tablecount] .= $def_pos . ' ' . $def . '<br />';
         }
+
+        $senCount = count($word['sen']);
+        for ($i = 0; $i < $senCount; ++$i) {
+            $senO = $word['sen'][$i]['sen_es'];
+            $senT = $word['sen'][$i]['sen_cs'];
+            $sen_pos = $word['sen'][$i]['pos'];
+             if ($senO != '' || $senT != '') {
+                 if ($sen_pos != '') $sen_pos = ' [' . $sen_pos . ']';
+                $arr[$tablecount] .= $senO . $sen_pos . '<br />';
+                $arr[$tablecount] .= $senT;
+            }
+        }
+
         $arr[$tablecount] .= '</div>';
         $tablecount++;
     }
 
-    $show = pagination($arr);
-
-    foreach ($show as $key) {
+    foreach ($arr as $key) {
         echo $key;
     }
+    echo pagination();
 }
 
 //
 // Pagination
 //
-function pagination($aContent) {
+function pagination() {
     global $page, $pages, $vw_perpage;
 
     if ($pages > 1) {
@@ -194,8 +203,8 @@ function pagination($aContent) {
         }
     }
 
-    $aContent[] = '<div id="pagination">' . $plink . $link . $nlink . '</div>';
-    return $aContent;
+    $pagination = '<div id="pagination">' . $plink . $link . $nlink . '</div>';
+    return $pagination;
 }
 
 ?>

@@ -74,8 +74,9 @@ a:hover {
         /* ---------- Nav Logo ---------- */
         #nav h1 {
             position: absolute;
-            top: -41px;
-            left: 30px;
+            top: -48px;
+            left: 26px;
+            font: 32px 'IM Fell English SC', arial, serif;
             text-shadow: 0px 1px 1px #fff;
         }
 
@@ -114,6 +115,12 @@ a:hover {
             -moz-border-radius-topright: 5px;
             -webkit-border-top-right-radius: 5px;
             border-top-right-radius: 5px;
+            -moz-transition-property: background-color;
+            -webkit-transition-property: background-color;
+            -moz-transition-duration: 0.2s;
+            -webkit-transition-duration: 0.2s;
+            -moz-transition-timing-function: linear, ease-in;
+            -webkit-transition-timing-function: linear, ease-in;
         }
 
         #navigation li span a:hover {
