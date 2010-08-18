@@ -25,7 +25,7 @@
         <link rel="stylesheet" href="style.css" type="text/css" />
         <link rel="alternate" type="application/rss+xml" title="Project VaynWords RSS 2.0" href="./feed" />
 </head>
-<body>
+<body onDblClick="s=setInterval('scrollBy(0,2)',50)" onMousedown="clearInterval(s)" onload="s=0;">
     <div id="wrapper">
         <div id="shell">
             <div id="header">
