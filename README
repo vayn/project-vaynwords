@@ -1,3 +1,5 @@
+NOTICE: THE CONTENT OF THIS README IS DEPRECATED!
+
 Project Vaynwords 是一个用来从 twitter 收集单词的小工具。Project Vaynwords 是
 自由软件，你可以随意使用，但用作商业目的的除外。
 
@@ -47,7 +49,7 @@ How to install?
 
 1. Set config.php
 $vw_username is your twitter username
-$vw_hashtag is your special hashtag (If you don't know what's hashtag, 
+$vw_hashtag is your special hashtag (If you don't know what's hashtag,
 please google it)
 Both ofthem are *required*.
 
@@ -63,7 +65,7 @@ Please change file name of check_update.php to any string(except illegal
 characters) you want, but don't expose it.
 
 5. Catch check_update.php (which has been changed name) regularly
-You can use cronjob and wget/curl or other software to catch the page.  
+You can use cronjob and wget/curl or other software to catch the page.
 Do not catch page too frequently.
 
 ---
@@ -78,6 +80,6 @@ Send the word with hashtag to twiter, that's all. So easy~
 
 ---
 
-更多信息请访问 http://lab.jixia.org 或 http://i.vtcore.com/vaynwords
+更多信息请访问 http://lab.jixia.org
 
-So also: http://lab.jixia.org or http://i.vtcore.com/vaynwords
+So also: http://lab.jixia.org
