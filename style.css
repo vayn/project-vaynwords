@@ -1,5 +1,14 @@
 @charset "utf-8";
 
+/*******************************************************
+/* I like this style, but she is not my creation.
+/* This CSS style is from Virb.com(except .word & part of pagination).
+/* I just use this for my open source project.
+/* If the owner of this CSS stylesheet doesn't want me use it, please email me.
+/* I will remove this CSS.
+/* Vayn <vt@elnode.com>
+********************************************************/
+
 /* ---------- GLOBAL STYLING & RESET ---------- */
 
 * {
@@ -185,27 +194,28 @@ a:hover {
     position: relative;
 }
 
-#footer .b2t, #footer .g2b {
-    background-position: center center;
-    background-repeat: no-repeat;
-}
+    #footer .b2t, #footer .g2b {
+        background-position: center center;
+        background-repeat: no-repeat;
+    }
 
-#footer .b2t,#footer .g2b{
-    background-image: url(img/b2t.png);
-    z-index: 2;
-    position: fixed;
-    bottom: 20%;
-    left: 10px;
-    cursor: pointer;
-    width: 40px;
-    height: 68px
-}
+    /* ---------- UP AND DOWN ARROW STYLE ---------- */
+    #footer .b2t, #footer .g2b{
+        background-image: url(img/b2t.png);
+        z-index: 2;
+        position: fixed;
+        bottom: 20%;
+        left: 10px;
+        cursor: pointer;
+        width: 40px;
+        height: 68px
+    }
 
-#footer .g2b{
-    background-image: url(img/g2b.png);
-    top: 80% !important;
-    bottom: auto
-}
+    #footer .g2b{
+        background-image: url(img/g2b.png);
+        top: 80% !important;
+        bottom: auto
+    }
 
 #footer p {
     margin: 0px;
@@ -247,9 +257,9 @@ a:hover {
     background: #f3f3ec;
     border-bottom: 1px solid #bbb;
     border-right: 1px solid #ddd;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
     text-decoration: none;
     padding: 5px 11px;
     text-shadow: 0 1px 0 #fff;
@@ -271,9 +281,9 @@ a:hover {
     border: none;
     border-top: 1px solid #bbb;
     border-left: 1px solid #ddd;
-    -moz-border-radius: 4px;
-    -webkit-border-radius: 4px;
-    border-radius: 4px;
+    -moz-border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
     background: #1785eb;
     padding: 5px 11px;
     font-weight: bold;
