@@ -1,11 +1,10 @@
 @charset "utf-8";
 
 /*******************************************************
-/* I like this style, but she is not my creation.
-/* This CSS style is from Virb.com(except .word & part of pagination).
-/* I just use this for my open source project.
+/* This CSS style is inspired by Virb.com.
+/* I just use it for non-commercial use.
 /* If the owner of this CSS stylesheet doesn't want me use it, please email me.
-/* I will remove this CSS.
+/*
 /* Vayn <vt@elnode.com>
 ********************************************************/
 
@@ -18,7 +17,7 @@
 
 body {
     margin: 12px 0px 12px 0px;
-    font: normal 10px/150% "Lucida Grande", "Lucida Sans Unicode", Verdana, "Jamrul", sans-serif;
+    font: normal 10px/150% "Helvetica Neue", "Luxi Sans", "DejaVu Sans", Tahoma, "Hiragino Sans GB", STHeiti !important;
     color: #525760;
     background: #b1d4e5;
 }
@@ -171,7 +170,7 @@ a:hover {
     content: ".";
 }
 
-#dotcom {
+#wordlist {
     padding: 0 0 30px 0;
     background: url("./img/bg.gif") repeat-y top right;
 }

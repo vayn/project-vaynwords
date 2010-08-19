@@ -32,7 +32,7 @@
                     <h1><?php echo $vw_sitename ?></h1>
                     <ul id="navigation">
                         <li><span><a href="http://lab.jixia.org">JiXia Lab</a></span></li>
-                        <li><span><a href="http://www.github.com/vayn/project-vaynwords">Download</a></span></li>
+                        <li><span><a href="http://vk.elnode.com">Weblog</a></span></li>
                         <li><span><a href="http://twiter.com/vayn">Twitter</a></span></li>
                     </ul>
                 </div>
@@ -40,4 +40,4 @@
             <hr />
             <div id="content">
                 <div class="container">
-                    <div id="dotcom">
+                    <div id="wordlist">
