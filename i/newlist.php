@@ -2,7 +2,7 @@
 chdir('../');
 require('config.php');
 require('vws_functions.php');
-require('i/function.php');
+require('molib/function.php');
 
 if ($db = mysql_connect($dbhost, $dbuser, $dbpassword)) {
     mysql_select_db($dbdatabase, $db);

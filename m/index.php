@@ -11,7 +11,7 @@ chdir('../');
 
 require('config.php');
 require('vws_functions.php');
-require('m/function.php');
+require('molib/function.php');
 
 if ($db = mysql_connect($dbhost, $dbuser, $dbpassword)) {
     mysql_select_db($dbdatabase, $db);
@@ -40,9 +40,9 @@ if ($db = mysql_connect($dbhost, $dbuser, $dbpassword)) {
          $page = 1;
     }
 
-    require('m/header.php');
+    require('molib/header.php');
     mobiContent();
-    require('m/footer.php');
+    require('molib/m_footer.php');
 }
 else {
     echo 'There is something wrong.';

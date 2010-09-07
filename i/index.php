@@ -11,10 +11,10 @@ chdir('../');
 
 require('config.php');
 require('vws_functions.php');
-require('i/function.php');
+require('molib/function.php');
 
-require('i/header.php');
+require('molib/header.php');
 mobiContent();
-require('i/footer.php');
+require('molib/i_footer.php');
 
 ?>

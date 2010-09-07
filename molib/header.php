@@ -18,13 +18,13 @@
     <meta name="viewport" content="maximum-scale=1.0,width=device-width,initial-scale=1.0" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
 
-    <link rel="shortcut icon" href="favicon.ico" />
-    <link rel="stylesheet" type="text/css" media="screen"  href="style/ext-touch.css" />
-    <link rel="stylesheet" type="text/css" media="screen"  href="style/style.css" />
+    <link rel="shortcut icon" href="../favicon.ico" />
+    <link rel="stylesheet" type="text/css" media="screen"  href="../molib/style/ext-touch.css" />
+    <link rel="stylesheet" type="text/css" media="screen"  href="../molib/style/style.css" />
     <link rel="alternate" type="application/rss+xml" title="Project VaynWords RSS 2.0" href="./feed" />
-    <script src="style/jquery.min.js" type="text/javascript"></script>
-    <script src="style/jquery.form.js" type="text/javascript"></script>
-    <script src="style/app.js" type="text/javascript"></script>
+    <script src="../molib/style/jquery.min.js" type="text/javascript"></script>
+    <script src="../molib/style/jquery.form.js" type="text/javascript"></script>
+    <script src="../molib/style/app.js" type="text/javascript"></script>
     <script type="text/javascript">var IS_GUEST = true;</script>
 </head>
 <body>
