@@ -173,6 +173,8 @@ a:hover {
 #wordlist {
     padding: 0 0 30px 0;
     background: url("./img/bg.gif") repeat-y top right;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding-box;
 }
 
     .word {

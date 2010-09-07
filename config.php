@@ -8,7 +8,7 @@
  *    Create Date:      2010年 05月 13日 星期四 20:11:51 CST
  */
 $vw_sitename = 'Project VaynWords'; // Your site name
-$vw_username = 'jxlab'; // Change to your twitter username, *required*
+$vw_userid = '135854314'; // Change to your twitter userid. NOTICE: USERID is NOT USERNAME *required*
 $vw_hashtag = 'vaynwords'; // Change to your special hashtag, *required*
 $vw_useragent = 'JxLab'; // Your information, e.g. email, blog or any other things you want to fill in
 $vw_password = 'VaynUpdateList'; // The key to run VaynWords.php

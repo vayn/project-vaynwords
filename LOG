@@ -1,3 +1,6 @@
+v0.6.3 2010年 09月 07日 星期三 20:37:49 CST
+-从search.twitter.com更换到api.twitter.com，避免查不到tweet的状况
+
 v0.6.3 2010年 08月 18日 星期三 13:27:54 CST
 -将 mor 添加至 word 数组，并解决一词多义及句子的展示
 
