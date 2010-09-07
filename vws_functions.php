@@ -221,4 +221,10 @@ function pagination() {
     return $pagination;
 }
 
+function UserAgent() {
+    $user_agent = ( ! isset($_SERVER['HTTP_USER_AGENT'])) ? FALSE : $_SERVER['HTTP_USER_AGENT'];
+
+    return $user_agent;
+}
+
 ?>
