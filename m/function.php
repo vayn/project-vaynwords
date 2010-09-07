@@ -10,7 +10,7 @@ function mobiContent() {
         $mp3 = $word['sound'];
         $pho = $word['pho'];
 
-        $arr[$tablecount] = '<li style="background-image: url(style/images/avatar.png);"><span id="' . $id . '"></span><span class="author">' . $key . '</span> ';
+        $arr[$tablecount] = '<li style="listy-style: none;"><span id="' . $id . '"></span><span class="author">' . $key . '</span> ';
         if ($pho == '' && $mp3 != '') {
             $arr[$tablecount] .= gsound($mp3) . '<br />';
         }
