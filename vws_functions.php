@@ -31,6 +31,7 @@ function dict_query($value_1) {
 // 从 QQ 获得单词数据
 //
 function Cuery($w) {
+    $w = urlencode($w);
     $json = file_get_contents("http://dict.qq.com/dict?q={$w}");
     return $decode = json_decode($json, true);
 }

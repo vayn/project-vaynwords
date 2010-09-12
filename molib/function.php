@@ -11,16 +11,8 @@ function mobiContent() {
         $pho = $word['pho'];
 
         $arr[$tablecount] = '<li style="listy-style: none;"><span id="' . $id . '"></span><span class="author">' . $key . '</span> ';
-        if ($pho == '' && $mp3 != '') {
-            $arr[$tablecount] .= gsound($mp3) . '<br />';
-        }
-        elseif ($pho != '') {
-            if ($mp3 != '') {
-                $arr[$tablecount] .= '/' . $pho . '/ ' . gsound($mp3) . '<br />';
-            }
-            else {
-                $arr[$tablecount] .= '/' . $pho . '/ ' . '<br />';
-            }
+        if ($pho != '') {
+            $arr[$tablecount] .= '/' . $pho . '/ ' . '<br />';
         }
 
         $defCount = count($word['def']);
