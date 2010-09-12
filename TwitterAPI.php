@@ -1,11 +1,9 @@
 <?php
 /**
- * Wrapper class around the Twitter Search API for PHP
- * Based on the class originally developed by David Billingham
+ * This class is based on the class originally developed by David Billingham
  * and accessible at http://twitter.slawcup.com/twitter.class.phps
- * @author Ryan Faerman <ryan.faerman@gmail.com>
- * @version 0.2
- * @package PHPTwitterSearch
+ * @version 0.1
+ * @package PHPTwitterAPI
  */
 class TwitterSearch {
     /**
@@ -19,7 +17,7 @@ class TwitterSearch {
      * More discussion at http://tinyurl.com/3xtx66
      * @var array
      */
-    var $headers=array('X-Twitter-Client: PHPTwitterSearch','X-Twitter-Client-Version: 0.1','X-Twitter-Client-URL: http://ryanfaerman.com/twittersearch');
+    var $headers=array('X-Twitter-Client: PHPTwitterSearch','X-Twitter-Client-Version: 0.1','X-Twitter-Client-URL: http://lab.jixia.org/');
 
     /**
      * Recommend setting a user-agent so Twitter knows how to contact you inc case of abuse. Include your email
