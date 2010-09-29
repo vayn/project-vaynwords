@@ -1,16 +1,5 @@
 <?php
-/*
- * footer.php
- *
- * Author: Jixia Lab <vt@elnode.com>
- * Site: http://lab.jixia.org/
- *
- * ver0.4.6
- *
- * 04/24/2010
- *
- */
- require('VERSION');
+include_once '/inc/VERSION.inc';
 ?>
                     </div>
                 </div>

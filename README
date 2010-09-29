@@ -28,58 +28,6 @@ System Requirement
 
 ---
 
-如何安装？
-
-1. 设置 config.php $vw_username 填写你的 twitter 账号$vw_hashtag 填写你设定的
-hashtag (关于什么是 hashtag 请自行 Google 之)这两项*必填*。
-
-2. 修改包括文件夹在内的所有文件的权限为 777使用 ftp 软件或 ssh 工具 (如果服务器
-支持) 均可，具体方法请自行 Google。
-
-3. 初始化程序用浏览器打开 check_update.php 即可.
-
-4. 修改 check_update.php 的文件名请将 check_update.php 的名字修改为任意名称，并
-且不要对他人透露。
-
-5. 使用 cronjob 之类的自动化工具定时访问修改名称后的 check_update.php你可以使用
-wget 或 curl 配合 cronjob 定时访问 check_update.php有关这方面的内容请自行查询，
-定时访问时间建议最短不要小于 15 分钟。
-
-How to install?
-
-1. Set config.php
-$vw_username is your twitter username
-$vw_hashtag is your special hashtag (If you don't know what's hashtag,
-please google it)
-Both ofthem are *required*.
-
-2. Change permission of all files and directories to 777
-You can change permission with ftp software and ssh tools (If your server
-supports)
-
-3. Initialize
-Use any kinds of broswers to visit check_update.php
-
-4. Change file name of check_update.php
-Please change file name of check_update.php to any string(except illegal
-characters) you want, but don't expose it.
-
-5. Catch check_update.php (which has been changed name) regularly
-You can use cronjob and wget/curl or other software to catch the page.
-Do not catch page too frequently.
-
----
-
-如何使用？
-
-把要记录的 单词+hashtag 发送到 twitter 即可 :)
-
-How to use?
-
-Send the word with hashtag to twiter, that's all. So easy~
-
----
-
 更多信息请访问 http://lab.jixia.org
 
-So also: http://lab.jixia.org
+See also: http://lab.jixia.org

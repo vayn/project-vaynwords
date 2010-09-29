@@ -1,13 +1,8 @@
 <?php
 
-require('config.php');
-require('vws_functions.php');
+include_once './inc/common.inc.php';
 
 $site = 'http://' . $_SERVER['SERVER_NAME'] . substr($_SERVER['SCRIPT_NAME'], 0, strrpos($_SERVER['SCRIPT_NAME'], '/'));
-
-$db = mysql_connect($dbhost, $dbuser, $dbpassword);
-mysql_select_db($dbdatabase, $db);
-mysql_query("set names 'utf8';");
 
 $rsshead =<<<XSL
 <?xml version="1.0" encoding="UTF-8"?>
@@ -30,16 +25,17 @@ $rsshead =<<<XSL
   <language>en</language>
 XSL;
 
+header("Content-Type: application/rss+xml");
+
 echo $rsshead;
 
-$words = pullword();
+$words = VWSCore::pullwords();
 
 foreach ($words as $word) {
     $id = $word['id'];
     $key = $word['key'];
     $date = date(DATE_RSS, $word['date']);
-    $mp3 = $word['sound'];
-    if ($word['pho'] != '') $pho = "/{$word['pho']}/";
+    $pho = $word['pho'] ? "/{$word['pho']}/" : '';
 
     $rssbody = "
 <item>

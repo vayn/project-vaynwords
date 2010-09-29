@@ -1,15 +1,7 @@
 <?php
-/**
- * Author:
- *    Vayn a.k.a. VT <vt@elnode.com>
- *    http://elnode.com
- *
- *    File:             VaynWord.php
- *    Create Date:      2010年 08月 03日 星期二 00:32:21 CST
- */
-require('config.php');
-require('TwitterAPI.php');
-require('vws_functions.php');
+
+include_once './inc/common.inc.php';
+include_once './core/TwitterAPI.php';
 
 if ($_GET['pass'] == $vw_password) {
     // Search from Twitter
@@ -20,10 +12,11 @@ if ($_GET['pass'] == $vw_password) {
 
     $db = mysql_connect($dbhost, $dbuser, $dbpassword);
     mysql_select_db($dbdatabase, $db);
-    mysql_query("set names 'utf8';");
+    $db->query("set names 'utf8';");
 
+    // Select latest date from DB
     $tsql = "SELECT date FROM vws_words ORDER BY date DESC LIMIT 0, 1;";
-    $tresult = mysql_query($tsql);
+    $tresult = $db->query($tsql);
 
     if ($row = mysql_fetch_assoc($tresult)) {
         $last_item_timestamp = $row['date'];
@@ -42,9 +35,13 @@ if ($_GET['pass'] == $vw_password) {
             $date = strtotime(substr($date, 0, 25));
 
             foreach ($tweet as $word) {
-                $d = Cuery($word);
+                $word = new query_Word($word);
+                $dict = new query_qqDict();
 
-                if ($date > $last_item_timestamp) {
+                $d = $word->query($dict);
+
+                if ($date > $last_item_timestamp) { // Determine the word from Twitter
+                                                    // is newer than the newest word in DB 
                     if ($d['local'][0]['word'] != '') {
                         $key = $d['local'][0]['word'];
                         $pho = str_replace("'", "ˈ", $d['local'][0]['pho'][0]);
@@ -52,36 +49,28 @@ if ($_GET['pass'] == $vw_password) {
                         if ($d['local'][0]['sen'] != '') $aSen = $d['local'][0]['sen'];
                         if ($d['local'][0]['mor'] != '') $aMor = $d['local'][0]['mor'];
 
-                        $json = file_get_contents("http://www.google.com/dictionary/json?callback=dict_api.callbacks.id100&q={$key}&sl=en&tl=zh&restrict=pr%2Cde&client=te");
-                        $json = substr($json, strpos($json, "(")+1, -10);
-                        $json = str_replace("\\", "\\\\", $json);
-                        $decode = json_decode($json, true);
-                        $i = 0;
-                        $soundUrl = null;
-                        while ($i < count($decode['primaries'][0]['terms'])) {
-                            $verify = strpos($decode['primaries'][0]['terms'][$i]['text'], "http");
-                            if ($verify === 0) {
-                                $soundUrl = $decode['primaries'][0]['terms'][$i]['text'];
-                                break;
-                            }
-                            $i++;
-                        }
+                        // Lookup the sound from Google Dictionary
+                        $soundUrl = VWSCore::gSound($word);
 
+                        // Store word, date, phonogram and sound url to DB
                         $wsql = "INSERT INTO vws_words (`date`, `key`, `pho`, `sound`) VALUES (" . $date . ", '" . $key . "', '" . $pho . "', '" . $soundUrl . "');";
-                        mysql_query($wsql);
-                        $wid = mysql_insert_id();
+                        $db->query($wsql);
+                        $wid = $db->insert_id();
 
+                        // Store definiton and part of speech to DB
                         if ($aDes) {
                             for ($i = 0; $i < count($aDes); $i++) {
                                 $dpos = $aDes[$i]['p'];
                                 $ddef = $aDes[$i]['d'];
                                 $dessql = "INSERT INTO vws_des (wid, pos, def) VALUES (" . $wid . ", '" . $dpos . "', '" . $ddef . "');";
-                                "<br/>";
-                                mysql_query($dessql);
+                                $db->query($dessql);
                                 unset($aDes);
                             }
                         }
 
+                        // Store example sentences (both English and Chinese)
+                        // and the part of speech of the word in example sentence
+                        // to DB
                         if ($aSen) {
                             for ($i = 0; $i < count($aSen); $i++) {
                                 $spos = $aSen[$i]['p'];
@@ -89,28 +78,28 @@ if ($_GET['pass'] == $vw_password) {
                                     $sen_es = $aSen[$i]['s'][$j]['es'];
                                     $sen_cs = $aSen[$i]['s'][$j]['cs'];
                                     $sensql = "INSERT INTO vws_sen (wid, pos, sen_es, sen_cs) VALUES (" . $wid . ", '" . $spos . "', '" . $sen_es . "', '" . $sen_cs . "');";
-                                    mysql_query($sensql);
+                                    $db->query($sensql);
                                     unset($aSen);
                                 }
                             }
                         }
 
+                        // Store morphology to DB
                         if ($aMor) {
                             for ($i = 0; $i < count($aMor); $i++) {
                                 $moc = $aMor[$i]['c'];
                                 $mom = $aMor[$i]['m'];
                                 $morsql = "INSERT INTO vws_mor (wid, c, m) VALUES (" . $wid . ", '" . $moc . "', '" . $mom . "');";
-                                "<br/>";
-                                mysql_query($morsql);
+                                $db->query($morsql);
                                 unset($aMor);
                             }
                         }
+
                     }
                 }
             }
         }
     }
-    echo '--END--';
 }
 else {
     header('Location: ./');

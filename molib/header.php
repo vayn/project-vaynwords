@@ -22,9 +22,9 @@
     <link rel="stylesheet" type="text/css" media="screen"  href="../molib/style/ext-touch.css" />
     <link rel="stylesheet" type="text/css" media="screen"  href="../molib/style/style.css" />
     <link rel="alternate" type="application/rss+xml" title="Project VaynWords RSS 2.0" href="./feed" />
-    <script src="../molib/style/jquery.min.js" type="text/javascript"></script>
-    <script src="../molib/style/jquery.form.js" type="text/javascript"></script>
-    <script src="../molib/style/app.js" type="text/javascript"></script>
+    <script src="../molib/js/jquery.min.js" type="text/javascript"></script>
+    <script src="../molib/js/jquery.form.js" type="text/javascript"></script>
+    <script src="../molib/js/app.js" type="text/javascript"></script>
     <script type="text/javascript">var IS_GUEST = true;</script>
 </head>
 <body>

@@ -21,7 +21,7 @@
 
         <link href='http://fonts.googleapis.com/css?family=IM+Fell+English+SC' rel='stylesheet' type='text/css'>
         <link rel="shortcut icon" href="favicon.ico" />
-        <link rel="stylesheet" href="style.css" type="text/css" />
+        <link rel="stylesheet" href="css/style.css" type="text/css" />
         <link rel="alternate" type="application/rss+xml" title="Project VaynWords RSS 2.0" href="./feed" />
 </head>
 <body onDblClick="s=setInterval('scrollBy(0,2)',50)" onMousedown="clearInterval(s)" onload="s=0;">
