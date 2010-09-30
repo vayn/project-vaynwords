@@ -1,7 +1,7 @@
 <?php
 
-include_once './inc/common.inc.php';
-include_once './core/TwitterAPI.php';
+include_once 'inc/common.inc.php';
+include_once 'core/TwitterAPI.php';
 
 if ($_GET['pass'] == $vw_password) {
     // Search from Twitter
@@ -10,15 +10,11 @@ if ($_GET['pass'] == $vw_password) {
 
     $results = $search->results($vw_userid);
 
-    $db = mysql_connect($dbhost, $dbuser, $dbpassword);
-    mysql_select_db($dbdatabase, $db);
-    $db->query("set names 'utf8';");
-
     // Select latest date from DB
     $tsql = "SELECT date FROM vws_words ORDER BY date DESC LIMIT 0, 1;";
     $tresult = $db->query($tsql);
 
-    if ($row = mysql_fetch_assoc($tresult)) {
+    if ($row = $db->fetch_array($tresult)) {
         $last_item_timestamp = $row['date'];
     }
     else {
@@ -50,7 +46,7 @@ if ($_GET['pass'] == $vw_password) {
                         if ($d['local'][0]['mor'] != '') $aMor = $d['local'][0]['mor'];
 
                         // Lookup the sound from Google Dictionary
-                        $soundUrl = VWSCore::gSound($word);
+                        $soundUrl = VWSCore::gSound($key);
 
                         // Store word, date, phonogram and sound url to DB
                         $wsql = "INSERT INTO vws_words (`date`, `key`, `pho`, `sound`) VALUES (" . $date . ", '" . $key . "', '" . $pho . "', '" . $soundUrl . "');";
