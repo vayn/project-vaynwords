@@ -77,7 +77,7 @@ function getEntry()
 
     get_entry_page++;
 
-    $.get('../molib/newlist.php?page=' + get_entry_page, function (data) {
+    $.get('newlist.php?page=' + get_entry_page, function (data) {
         hideLoading();
 
         if (data == 'empty')
