@@ -4,12 +4,12 @@ require_once('./inc/common.inc.php');
 
 if ((preg_match("/(iphone|ipad|ipod|android)/i", strtolower(VWSCore::UserAgent()))) AND strstr(strtolower(VWSCore::UserAgent()), 'webkit'))
 { 
-    header('Location: molib/');
+    header('Location: mobile/');
     exit;
 }
 else if (trim(VWSCore::UserAgent()) == '' OR preg_match("/(nokia|sony|ericsson|mot|htc|samsung|sgh|lg|philips|lenovo|ucweb|opera mobi|windows mobile|blackberry)/i", strtolower(VWSCore::UserAgent())))
 {
-    header('Location: molib/?m');
+    header('Location: mobile/?m');
     exit;
 }
 
