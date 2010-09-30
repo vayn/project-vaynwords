@@ -1,12 +1,12 @@
-<?php
-include_once '/inc/VERSION.inc';
-?>
+<?php include_once 'inc/VERSION.inc'; ?>
                     </div>
                 </div>
             </div>
             <div id="footer">
+                <?php if (strpos($_SERVER['PHP_SELF'], 'index.php')): ?>
                 <div class="b2t"></div>
                 <div class="g2b"></div>
+                <?php endif; ?>
                 <p>
                     Powered by
                     <a href="http://www.php.net/">PHP</a>,

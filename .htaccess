@@ -1,7 +1,8 @@
 RewriteEngine On
 
-RewriteBase /project-vaynwords/
+RewriteBase /vws
+
 RewriteRule feed/ vws_rss.php
 RewriteRule feed feed/ [R]
 
-ErrorDocument 404 /project-vaynwords/404.php
+ErrorDocument 404 /vws/404.php

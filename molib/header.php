@@ -1,13 +1,3 @@
-<?php
-/**
- * Author:
- *    Vayn a.k.a. VT <vt@elnode.com>
- *    http://elnode.com
- *
- *    File:             header.php
- *    Create Date:      2010年04月30日 星期五 05时58分42秒
- */
-?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>

@@ -1,10 +1,32 @@
 <?php
 include_once 'inc/common.inc.php';
-require('header.php');
+include_once 'header.php';
 ?>
-  <div id="header"><h1>404 Not found.</h1></div>
-  <div id="main">
-  <div id="whale_error"><img src="images/whale_error.gif" alt="Hey! What are you looking for?" /></div>
-<?php
-require('footer.php');
-?>
+<pre style="padding:40px 0px 0px 10px;text-align:center;font-size:24px;">
+                  ◢◣                                                          　
+                ◢◤◥◣              ◢◣                                      　
+              ◢◤  ◢◤            ◢◤◥◣                                    　
+            ◢◤  ◢◤  ◢◣        ◥◣  ◥◣                                  　
+          ◢◤  ◢◤  ◢◤◥◣      ◢◤    ◥◣                                　
+        ◢◤  ◢◤  ◢◤  ◢◤    ◢◤  ◢◣◢◤                                　
+      ◢◤    ◥◣◢◤  ◢◤    ◢◤  ◢◤◥◤                                  　
+    ◢◤  ◢◣  ◥◤  ◢◤    ◢◤  ◢◤                                        　
+  ◢◤  ◢◤◥◣    ◢◤    ◢◤  ◢◤                          ◢◣            　
+◢◤  ◢◤  ◢◤  ◢◤◢◣◢◤  ◢◤    ◢◣                  ◢◤◥◣          　
+◥◣◢◤  ◢◤  ◢◤◢◤◥◤  ◢◤    ◢◤◥◣              ◢◤  ◢◤          　
+  ◥◤  ◢◤  ◢◤  ◥◣    ◢◤    ◢◤    ◥◣          ◢◤  ◢◤  ◢◣      　
+      ◢◤  ◢◤      ◥◣  ◥◣  ◢◤  ◢◣  ◥◣      ◢◤  ◢◤  ◢◤◥◣    　
+      ◥◣◢◤          ◥◣◢◤◢◤  ◢◤◥◣  ◥◣  ◢◤  ◢◤  ◢◤  ◢◤    　
+        ◥◤              ◥◤◢◤  ◢◢◣  ◥◣◢◤◢◤    ◥◣◢◤  ◢◤      　
+                            ◢◤  ◢◢◤◥◣  ◥◤◢◤  ◢◣  ◥◤  ◢◤        　
+                          ◢◤  ◢◤◥◣  ◥◣  ◢◤  ◢◤◥◣    ◢◤          　
+                        ◢◤  ◢◤  ◢◤  ◢◤◢◤  ◢◤  ◢◤  ◢◤            　
+                        ◥◣  ◥◣◢◤  ◢◤  ◥◣◢◤  ◢◤  ◢◤              　
+                          ◥◣  ◥◤  ◢◤      ◥◤  ◢◤  ◢◤                　
+                            ◥◣    ◢◤            ◢◤  ◢◤                  　
+                              ◥◣◢◤              ◥◣◢◤                    　
+                                ◥◤                  ◥◤                      　
+                                                                                　
+                                                                                　
+</pre>
+<?php include_once 'footer.php'; ?>
