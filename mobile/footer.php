@@ -2,10 +2,10 @@
     </ul> 
     <ul class="entry button" id="x-button-get-entry">
         <li>
-        <?php if ($_SERVER['QUERY_STRING'] != 'm') { ?>
-            <div class="x-button" align="center" onclick="getEntry();">载入更多</div>
-        <?php } else { ?>
+        <?php if ($_SERVER['QUERY_STRING']) { ?>
             <div align="center"><?php echo VWSCore::pagination(); ?></div>
+        <?php } else { ?>
+            <div class="x-button" align="center" onclick="getEntry();">载入更多</div>
         <?php } ?>
         </li>
     </ul>

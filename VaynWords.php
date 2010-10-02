@@ -25,12 +25,12 @@ if ($_GET['pass'] == $vw_password) {
         if (strpos($key->text, $vw_hashtag)) {
             // Get word from hashtag tweet
             $tweet = substr($key->text, 0, strrpos($key->text, '#'));
-            $tweet = explode(',', $tweet);
-            $tweet = array_map('trim', $tweet);
+            $words = explode(',', $tweet);
+            $words = array_map('trim', $words);
             $date = $key->created_at;
             $date = strtotime(substr($date, 0, 25));
 
-            foreach ($tweet as $word) {
+            foreach ($words as $word) {
                 $word = new query_Word($word);
                 $dict = new query_qqDict();
 

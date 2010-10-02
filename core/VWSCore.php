@@ -136,7 +136,7 @@ EOF;
                 if ($page == $l) {
                     $link .= ' <span class="current">' . $l . '</span> '; // If we are on the current page
                 }
-                else {
+                elseif ($l < ($pages+1)) {
                     $link .= ' <a href="?page=' . $l . '" class="page">' . $l . '</a> ';
                 }
             }

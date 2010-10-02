@@ -39,7 +39,9 @@ foreach ($lists as $list) {
     echo $list;
 }
 
-echo VWSCore::pagination();
+if ($pages > 1) {
+    echo VWSCore::pagination();
+}
 
 require_once 'footer.php';
 
