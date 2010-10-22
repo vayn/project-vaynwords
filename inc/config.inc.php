@@ -15,6 +15,8 @@ $vw_password = 'VaynUpdateList'; // The key to run VaynWords.php
 $vw_rss_output = 25; // The number of RSS output
 $vw_perpage = 25; // The number of each page displays
 
+$SALT = 'mysticky';
+
 $dbhost = "localhost";
 $dbuser = "root";
 $dbpassword = "";

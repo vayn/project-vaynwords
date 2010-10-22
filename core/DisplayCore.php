@@ -29,27 +29,21 @@ class DisplayCore {
                 }
             }
 
-            $defCount = count($word['def']);
-            for ($i = 0; $i < $defCount; ++$i) {
-                $def = $word['def'][$i]['def'];
-                $def_pos = $word['def'][$i]['pos'];
-                $arr[] .= $def_pos . ' ' . $def . '<br />';
+            $def = $word['def'];
+            $def_pos = $word['dpos'];
+            $arr[] .= $def_pos . ' ' . $def . '<br />';
+
+            $senO = $word['ses'];
+            $senT = $word['scs'];
+            $sen_pos = $word['spos'];
+            if ($senO != '' || $senT != '') {
+                if ($sen_pos != '') $sen_pos = ' [' . $sen_pos . ']';
+                $arr[] .= $senO . $sen_pos . '<br />';
+                $arr[] .= $senT . '<br />';
             }
 
-            $senCount = count($word['sen']);
-            for ($i = 0; $i < $senCount; ++$i) {
-                $senO = $word['sen'][$i]['sen_es'];
-                $senT = $word['sen'][$i]['sen_cs'];
-                $sen_pos = $word['sen'][$i]['pos'];
-                 if ($senO != '' || $senT != '') {
-                     if ($sen_pos != '') $sen_pos = ' [' . $sen_pos . ']';
-                    $arr[] .= $senO . $sen_pos . '<br />';
-                     $arr[] .= $senT . '<br />';
-                }
-            }
-
-            $c = $word['mor'][0]['c'];
-            $m = $word['mor'][0]['m'];
+            $c = $word['morc'];
+            $m = $word['morm'];
             if ($c != '' || $m != '') {
                $arr[] .= '[ ' . $c . ': ';
                $arr[] .= $m . ' ]';
@@ -76,27 +70,21 @@ class DisplayCore {
                 $arr[] .= '/' . $pho . '/ ' . '<br />';
             }
 
-            $defCount = count($word['def']);
-            for ($i = 0; $i < $defCount; ++$i) {
-                $def = $word['def'][$i]['def'];
-                $def_pos = $word['def'][$i]['pos'];
-                $arr[] .= $def_pos . ' ' . $def . '<br />';
+            $def = $word['def'];
+            $def_pos = $word['dpos'];
+            $arr[] .= $def_pos . ' ' . $def . '<br />';
+
+            $senO = $word['ses'];
+            $senT = $word['scs'];
+            $sen_pos = $word['spos'];
+             if ($senO != '' || $senT != '') {
+                 if ($sen_pos != '') $sen_pos = ' [' . $sen_pos . ']';
+                $arr[] .= $senO . $sen_pos . '<br />';
+                 $arr[] .= $senT . '<br />';
             }
 
-            $senCount = count($word['sen']);
-            for ($i = 0; $i < $senCount; ++$i) {
-                $senO = $word['sen'][$i]['sen_es'];
-                $senT = $word['sen'][$i]['sen_cs'];
-                $sen_pos = $word['sen'][$i]['pos'];
-                 if ($senO != '' || $senT != '') {
-                     if ($sen_pos != '') $sen_pos = ' [' . $sen_pos . ']';
-                    $arr[] .= $senO . $sen_pos . '<br />';
-                     $arr[] .= $senT . '<br />';
-                }
-            }
-
-            $c = $word['mor'][0]['c'];
-            $m = $word['mor'][0]['m'];
+            $c = $word['morc'];
+            $m = $word['morm'];
             if ($c != '' || $m != '') {
                 $arr[] .= '<p class="description">[ ' . $c . ': ';
                 $arr[] .= $m . ' ]</p>';

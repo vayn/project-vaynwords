@@ -61,46 +61,40 @@ EOF;
         $words = array();
 
         // Fetch word, date, phonogram and sound url from DB
-        $wsql = "SELECT * FROM vws_words ORDER BY `date` DESC LIMIT {$start}, {$vw_perpage};";
-        $wres = $db->query($wsql);
-        $wnum = !!($db->num_rows($wres));
+        $sql = "SELECT vws_words.*, vws_des.pos AS dpos, vws_des.def AS def,
+                vws_sen.pos AS spos, vws_sen.sen_es AS ses, vws_sen.sen_cs AS scs,
+                vws_mor.c AS morc, vws_mor.m AS morm FROM vws_words LEFT JOIN vws_des ON
+                vws_words.id = vws_des.wid LEFT JOIN vws_sen ON vws_words.id = vws_sen.wid
+                LEFT JOIN vws_mor ON vws_words.id = vws_mor.wid 
+                ORDER BY vws_words.date DESC LIMIT {$start}, {$vw_perpage};";
+        $res = $db->query($sql);
+        $num = !!($db->num_rows($res));
         $i = 0;
 
-        if ($wnum) {
-            while ($wrow = $db->fetch_array($wres)) {
-                $words[$i] = array('id'=>$wrow['id'], 'date'=>$wrow['date'], 'key'=>$wrow['key'], 'pho'=>$wrow['pho'], 'sound'=>$wrow['sound']);
-
-                $j = $k = $l = 0;
+        if ($num) {
+            while ($row = $db->fetch_array($res)) {
+                $words[$i] = array('id'=>$row['id'],
+                                    'date'=>$row['date'],
+                                    'key'=>$row['key'],
+                                    'pho'=>$row['pho'],
+                                    'sound'=>$row['sound']
+                                );
 
                 // Fetch definition and part of speech from DB
-                $dsql = "SELECT pos, def FROM vws_des WHERE wid=" . $words[$i]['id'] . ";";
-                $dres = $db->query($dsql);
-                while ($drow = $db->fetch_array($dres)) {
-                    $words[$i]['def'][$j]['pos'] = $drow['pos'];
-                    $words[$i]['def'][$j]['def'] = $drow['def'];
-                    $j++;
-                }
+                $words[$i]['dpos'] = $row['dpos'];
+                $words[$i]['def'] = $row['def'];
 
                 // Fetch example sentences (both English and Chinese)
                 // and the part of speech of the word in example sentence
                 // from DB
-                $ssql = "SELECT pos, sen_es, sen_cs FROM vws_sen WHERE wid=" . $words[$i]['id'] . ";";
-                $sres = $db->query($ssql);
-                 while ($srow = $db->fetch_array($sres)) {
-                    $words[$i]['sen'][$k]['pos'] = $srow['pos'];
-                    $words[$i]['sen'][$k]['sen_es'] = $srow['sen_es'];
-                    $words[$i]['sen'][$k]['sen_cs'] = $srow['sen_cs'];
-                    $k++;
-                }
+                $words[$i]['spos'] = $row['spos'];
+                $words[$i]['ses'] = $row['ses'];
+                $words[$i]['scs'] = $row['scs'];
 
                 // Fetch morphology from DB
-                $msql = "SELECT c, m FROM vws_mor WHERE wid=" . $words[$i]['id'] . ";";
-                $mres = $db->query($msql);
-                 while ($mrow = $db->fetch_array($mres)) {
-                    $words[$i]['mor'][$l]['c'] = $mrow['c'];
-                    $words[$i]['mor'][$l]['m'] = $mrow['m'];
-                    $l++;
-                 }
+                $words[$i]['morc'] = $row['morc'];
+                $words[$i]['morm'] = $row['morm'];
+
                 $i++;
             }
         }
