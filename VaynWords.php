@@ -25,6 +25,8 @@ if ($_GET['pass'] == $vw_password) {
         if (strpos($key->text, $vw_hashtag)) {
             // Get word from hashtag tweet
             $tweet = substr($key->text, 0, strrpos($key->text, '#'));
+            $notation = array(',', '.', '，', '。');
+            $tweet = str_replace($notation, ',', $tweet);
             $words = explode(',', $tweet);
             $words = array_map('trim', $words);
             $date = $key->created_at;
