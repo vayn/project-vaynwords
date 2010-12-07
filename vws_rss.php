@@ -44,30 +44,24 @@ foreach ($words as $word) {
 <description>
 &lt;p&gt;{$key} {$pho}&lt;/p&gt;";
 
-    $defCount = count($word['def']);
-    for ($i = 0; $i < $defCount; ++$i) {
-        $def = $word['def'][$i]['def'];
-        $def_pos = $word['def'][$i]['pos'];
-        $rssbody .= "&lt;p&gt;$def_pos $def&lt;/p&gt;";
+
+    $def = $word['def'];
+    $def_pos = $word['dpos'];
+    $rssbody .= "&lt;p&gt;$def_pos $def&lt;/p&gt;";
+
+    $seno = $word['ses'];
+    $sent = $word['scs'];
+    $sen_pos = $word['pos'];
+     if ($seno != '' || $sent != '') {
+         if ($sen_pos != '') $sen_pos = ' [' . $sen_pos . ']';
+         $rssbody .= '&lt;p&gt;' . $seno . $sen_pos . '&lt;/p&gt;';
+         $rssbody .= '&lt;p&gt;' . $sent . '&lt;/p&gt;';
     }
 
-    $senCount = count($word['sen']);
-    for ($i = 0; $i < $senCount; ++$i) {
-        $senO = $word['sen'][$i]['sen_es'];
-        $senT = $word['sen'][$i]['sen_cs'];
-        $sen_pos = $word['sen'][$i]['pos'];
-         if ($senO != '' || $senT != '') {
-             if ($sen_pos != '') $sen_pos = ' [' . $sen_pos . ']';
-             $rssbody .= '&lt;p&gt;' . $senO . $sen_pos . '&lt;/p&gt;';
-             $rssbody .= '&lt;p&gt;' . $senT . '&lt;/p&gt;';
-        }
-    }
-
-    $rssbody .= "
-</description>
-<pubDate>$date</pubDate>
-<guid>$site/index.php#$id</guid>
-</item>";
+    $rssbody .= "</description>
+                    <pubdate>$date</pubdate>
+                    <guid>$site/index.php#$id</guid>
+                    </item>";
     echo $rssbody;
 }
 
