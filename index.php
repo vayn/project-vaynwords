@@ -16,7 +16,7 @@ else if (trim(VWSCore::UserAgent()) == '' OR preg_match("/(nokia|sony|ericsson|m
 
 require_once 'header.php';
 
-$sql = "SELECT count(distinct(vws_words.key)) AS id FROM vws_words;";
+$sql = "SELECT COUNT(DISTINCT vws_words.key) AS id FROM vws_words;";
 $res = $db->query($sql);
 $row = $db->fetch_array($res);
 $amount = $row['id'];

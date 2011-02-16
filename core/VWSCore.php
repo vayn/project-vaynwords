@@ -66,7 +66,8 @@ EOF;
                 vws_mor.c AS morc, vws_mor.m AS morm FROM vws_words LEFT JOIN vws_des ON
                 vws_words.id = vws_des.wid LEFT JOIN vws_sen ON vws_words.id = vws_sen.wid
                 LEFT JOIN vws_mor ON vws_words.id = vws_mor.wid GROUP BY vws_words.key
-                ORDER BY count(distinct(vws_words.key)) DESC, vws_words.date DESC LIMIT {$start}, {$vw_perpage};";
+                ORDER BY vws_words.date DESC LIMIT {$start}, {$vw_perpage};";
+                #ORDER BY COUNT(DISTINCT vws_words.key) DESC, vws_words.date DESC LIMIT {$start}, {$vw_perpage};";
         $res = $db->query($sql);
         $num = !!($db->num_rows($res));
         $i = 0;

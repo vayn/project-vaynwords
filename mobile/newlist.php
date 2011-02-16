@@ -2,7 +2,7 @@
 
 include_once '../inc/common.inc.php';
 
-$sql = "SELECT count(id) AS id FROM vws_words;";
+$sql = "SELECT COUNT(DISTINCT vws_words.key) AS id FROM vws_words;";
 $res = $db->query($sql);
 $row = $db->fetch_array($res);
 $amount = $row['id'];
